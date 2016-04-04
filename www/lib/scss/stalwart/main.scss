@@ -1,0 +1,99 @@
+$light: #ffffff !default;
+$stable: #ccc !default;
+$positive: #e62739 !default;
+$calm: #11c1f3 !default;
+$balanced: #33cd5f !default;
+$energized: #ffc900 !default;
+$assertive: #ef473a !default;
+$royal: #886aea !default;
+$twitter: #00aced;
+$facebook: #3b5998;
+$google: #dd4b39;
+$instagram: #517fa4;
+$youtube: #bb0000;
+$tumblr: #32506d;
+$base-color: #212121 !default;
+$icon-color: #7a7a7a !default;
+$menu-color: #8A8A8A !default;
+$border-color: #eee;
+$color1: #909090;
+$color2: #1d224b;
+$color3: #dedfe1;
+$color4: #7EBCDA;
+$color5: #f5f5f5;
+$color6: #555555;
+$color7: #B0B0B0;
+$color8: #B7b7b7;
+$font-family-sans-serif: "Lato", "Nunito", "Roboto Slab", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
+$font-family-light-sans-serif: "Lato-light", "Nunito", "Roboto Slab", "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
+$pro-bg-image: url(../img/background/1.jpg) no-repeat center center;
+$pro-bg-images: url(../img/background/4.jpg) no-repeat center center;
+$card-box-shadow: none !default;
+$border-radius-base: 0 !default;
+$border-radius-large: 0 !default;
+$border-radius-small: 0 !default;
+$button-border-radius: 0 !default;
+$button-border-width: 0 !default;
+//$line-height-base:                1.8 !default; // 20/14
+$font-size-base: 14px !default;
+$font-weight: 300;
+$card-border-radius: 0 !default;
+@mixin square($some-number) {
+  width: $some-number;
+  height: $some-number;
+}
+@mixin transition($transition-property, $transition-time) {
+  -webkit-transition: $transition-property $transition-time;
+  -moz-transition: $transition-property $transition-time;
+  -ms-transition: $transition-property $transition-time;
+  -o-transition: $transition-property $transition-time;
+  transition: $transition-property $transition-time;
+}
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+@function grayscale($value) {
+  @return #{ "grayscale(" + $value + ")" };
+}
+@mixin filter($properties) {
+  // Your vendor prefixing stuff here, I am using Bourbon:
+  filter:$properties, webkit moz spec;
+}
+@mixin background-size($size) {
+  // Your vendor prefixing stuff here, I am using Bourbon:
+  background-size: $size;
+  -webkit-background-size: $size;
+  -moz-background-size: $size;
+  -o-background-size: $size;
+  -ms-background-size: $size;
+}
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto Slab' !important;
+}
+//***** Font Famliy ********
+@font-face {
+  font-family: 'Lato';
+  src: url(../fonts/Lato-Bold.ttf);
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url(../fonts/Lato-Light.ttf);
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+}
