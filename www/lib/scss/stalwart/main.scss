@@ -1,8 +1,8 @@
 $light: #ffffff !default;
 $stable: #ccc !default;
 $positive: #3e50b4 !default;
-$calm: #11c1f3 !default;
-$balanced: #33cd5f !default;
+$calm: #20a3ff !default;
+$balanced: #4caf50 !default;
 $energized: #ffc900 !default;
 $assertive: #ef473a !default;
 $royal: #886aea !default;
@@ -14,8 +14,8 @@ $border-color: #ccc;
 $input-color: #909090;
 $font-family-sans-serif: "Proxima Nova", sans-serif !default;
 $font-family-light-sans-serif: "Proxima Nova", sans-serif-light !default;
-$pro-bg-image: url("../img/background/1.jpg") no-repeat center center;
-$pro-bg-images: url("../img/background/4.jpg") no-repeat center center;
+$pro-bg-image: url("../img/bg.jpg");
+// $pro-bg-images: url("../img/background/4.jpg") no-repeat center center;
 $card-box-shadow: none !default;
 $border-radius-base: 0 !default;
 $border-radius-large: 0 !default;
@@ -80,11 +80,18 @@ $card-border-radius: 0 !default;
 }
 @font-face {
   font-family: 'Proxima Nova';
-  src: url("../fonts/pProximaNova-light.otf");
+  src: url("../fonts/ProximaNova-light.otf");
   font-weight: 300;
 }
 a {
   text-decoration: none;
+}
+.button-full, .bar-header, .card{
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12) !important;
+}
+.title{
+  font-weight: 300 !important;
+      font-size: 14px !important;
 }
 .bg-login {
   background-color: $bg-color;
@@ -208,5 +215,134 @@ padding: 12px 10px 0px 7px;
 .popup-buttons{
   .button{
         border-radius: 0px !important;
+  }
+}
+.num-day {
+    background: #ebed13;
+    color: $positive;
+    font-weight: 700;
+    border-radius: 100%;
+    height: 36px;
+    width: 36px;
+    padding: 3px 3px;
+
+        p{
+          margin: 0px;
+background: white;
+border-radius: 100%;
+height: 30px;
+width: 30px;
+padding: 6px 7px;
+font-size: 12px;
+        }
+}
+.day{
+  padding-right: 10px;
+padding-top: 8px;
+}
+.s-menu{
+  .item{
+    color:$input-color;
+    font-weight: 300;
+    i{
+      color:#c2c2c2;
+      padding-right:12px;
+      font-size: 20px;
+    }
+  }
+  .item{
+        background-color: #f4f4f4 !important;
+  }
+  .item-content{
+    background-color: #f4f4f4 !important;
+  }
+.list{
+  .actives {
+    color: $positive;
+    border-left: 4px solid $positive;
+    i{
+      color:$positive;
+    }
+}
+}
+}
+.menu{
+  background-color: #f4f4f4 !important;
+}
+.home-bg{
+  background:$pro-bg-image;
+  background-repeat: no-repeat;
+background-size: cover;
+}
+.pull-right{
+  float: right;
+}
+.pull-left{
+  float: left;
+}
+.text-up{
+  text-transform: uppercase;
+}
+.display-inline{
+  display: inline-block;
+}
+.ser{
+  span{
+    color:#333333;
+    font-weight: 400;
+    font-size: 14px
+  }
+}
+.status{
+  span{
+    color: #fff;
+font-size: 12px;
+background-color: $balanced;
+padding: 3px 8px;
+font-weight: 300;
+border-radius: 2px;
+  }
+}
+.status2{
+  @extend .status;
+  span{
+    background-color: $calm;
+  }
+}
+.text-color{
+  color:$input-color !important;
+}
+.vs{
+  h3{
+    font-size: 17px !important;
+    margin-top:8px !important;
+  }
+  span{
+    font-size: 14px;
+  }
+p{
+  font-size: 18px !important;
+}
+}
+.card-footer{
+  h4{
+    font-size: 16px !important;
+  }
+}
+.pt30{
+  padding-top: 30px !important;
+}
+.card{
+  border-top: 4px solid  $balanced;
+}
+.card2{
+    border-top: 4px solid  $calm;
+}
+.pt15{
+  padding-top: 15px;
+}
+.team{
+  h1{
+    font-size: 25px;
   }
 }

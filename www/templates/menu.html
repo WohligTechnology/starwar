@@ -1,9 +1,13 @@
 <ion-side-menus enable-menu-with-back-views="false">
   <ion-side-menu-content>
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-positive">
       <ion-nav-back-button>
       </ion-nav-back-button>
 
+      <ion-nav-buttons side="right">
+        <div class="day font-light"><span>Day left</span></div>
+      <div class="num-day"><p>25</p></div>
+      </ion-nav-buttons>
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
@@ -13,22 +17,28 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-stable">
+    <!-- <ion-header-bar class="bar-stable">
       <h1 class="title">Left</h1>
-    </ion-header-bar>
+    </ion-header-bar> -->
     <ion-content>
-      <ion-list>
-        <ion-item menu-close ng-click="login()">
-          Login
+      <ion-list class="s-menu">
+        <ion-item menu-close ui-sref-active="actives" ui-sref="app.home">
+          <i class="icon ln-home6 side-menu-i"></i>Home
         </ion-item>
-        <ion-item menu-close href="#/app/search">
-          Search
+        <ion-item menu-close ui-sref-active="actives" ui-sref="app.profile">
+          <i class="icon ln-user side-menu-i"></i>Profile
         </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          Browse
+        <ion-item menu-close ui-sref-active="actives" ui-sref="app.notification">
+            <i class="icon ln-bell side-menu-i"></i>Notification
         </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          Playlists
+        <ion-item menu-close ui-sref-active="actives" ui-sref="app.setting">
+          <i class="icon ln-gear2 side-menu-i"></i>Setting
+        </ion-item>
+        <ion-item menu-close ui-sref-active="actives" ui-sref="app.contact">
+          <i class="icon ln-contacts side-menu-i"></i>Contact
+        </ion-item>
+        <ion-item menu-close ui-sref-active="actives" ui-sref="login">
+          <i class="icon ln-arrow-right2 side-menu-i"></i>Logout
         </ion-item>
       </ion-list>
     </ion-content>
