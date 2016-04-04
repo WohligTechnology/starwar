@@ -345,8 +345,21 @@ p{
 .pt15{
   padding-top: 15px;
 }
+.pt10{
+  padding-top:10px;
+}
 .team{
   h1{
     font-size: 25px;
+  }
+}
+.contact{
+  p{
+    i{
+      font-size: 22px;
+padding-right: 10px;
+vertical-align: sub;
+color: #3E50B4;
+    }
   }
 }
