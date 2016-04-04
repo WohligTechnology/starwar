@@ -104,7 +104,7 @@ a {
       font-size: 23px;
       color: #bdbdbd; }
     .signup-form .list .item input {
-      margin-left: 10px;
+      margin-left: 12px;
       color: #909090;
       border-bottom: 1px solid #ccc; }
     .signup-form .list .item input::-webkit-input-placeholder {
@@ -119,9 +119,6 @@ a {
   .signup-form .list .item-input {
     padding: 8px 6px 7px; }
 
-.signup-form .button {
-  border-radius: 0px; }
-
 .btn-login {
   margin-top: 40px; }
 
@@ -131,6 +128,9 @@ a {
 
 .mt15 {
   margin-top: 15px; }
+
+.popup-buttons .button {
+  border-radius: 0px !important; }
 
 /*!
   Ionicons, v2.0.1

@@ -169,7 +169,7 @@ padding: 12px 10px 0px 7px;
   color: #bdbdbd;
       }
       input {
-        margin-left: 10px;
+        margin-left: 12px;
           color: $input-color;
             border-bottom: 1px solid #ccc;
 
@@ -192,9 +192,8 @@ padding: 12px 10px 0px 7px;
       padding: 8px 6px 7px;
     }
   }
-  .button{
-        border-radius: 0px;
-  }
+
+
 }
 .btn-login{
   margin-top: 40px;
@@ -205,4 +204,9 @@ padding: 12px 10px 0px 7px;
 }
 .mt15{
       margin-top: 15px;
+}
+.popup-buttons{
+  .button{
+        border-radius: 0px !important;
+  }
 }
