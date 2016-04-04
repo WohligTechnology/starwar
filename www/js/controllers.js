@@ -42,8 +42,22 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('LoginCtrl', function($scope) {
+.controller('LoginCtrl', function($scope, $ionicPopup, $timeout) {
+  $scope.showSuccess = function() {
+      var alertPopup = $ionicPopup.alert({
+          scope: $scope,
+          templateUrl: 'templates/signup.html',
+      });
 
+      alertPopup.then(function(res) {
+          console.log('Thanks');
+      });
+
+      $scope.closPop = function() {
+          console.log("Close called");
+          alertPopup.close();
+      };
+  };
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {

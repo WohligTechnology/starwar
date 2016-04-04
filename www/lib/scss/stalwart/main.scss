@@ -10,7 +10,8 @@ $base-color: #212121 !default;
 $white-color: #fff !default;
 $menu-color: #8A8A8A !default;
 $bg-color: #fed65c !default;
-$border-color: #eee;
+$border-color: #ccc;
+$input-color: #909090;
 $font-family-sans-serif: "Proxima Nova", sans-serif !default;
 $font-family-light-sans-serif: "Proxima Nova", sans-serif-light !default;
 $pro-bg-image: url("../img/background/1.jpg") no-repeat center center;
@@ -107,7 +108,7 @@ a {
   margin: 0;
 }
 .padding0 {
-  padding: 0;
+  padding: 0 !important;
 }
 .logo-title {
   margin-top: 50px;
@@ -152,6 +153,56 @@ padding: 12px 10px 20px 7px;
     }
   }
 }
+.signup-form {
+  .list {
+    background-color: transparent;
+padding: 12px 10px 0px 7px;
+    .item {
+      border-color: rgba(0, 0, 0, 0.54);
+      background-color: transparent;
+      color: $white-color;
+      border-width: 0;
+          margin: 0px;
+          margin-bottom: 10px;
+      i {
+        font-size: 23px;
+  color: #bdbdbd;
+      }
+      input {
+        margin-left: 10px;
+          color: $input-color;
+            border-bottom: 1px solid #ccc;
+
+      }
+      input::-webkit-input-placeholder {
+          color: $input-color;
+          font-weight: 300;
+
+        }
+      input::-ms-input-placeholder {
+          color: $input-color;
+          font-weight: 300;
+        }
+      input::-moz-placeholder  {
+          color: $input-color;
+          font-weight: 300;
+        }
+    }
+    .item-input {
+      padding: 8px 6px 7px;
+    }
+  }
+  .button{
+        border-radius: 0px;
+  }
+}
 .btn-login{
   margin-top: 40px;
+}
+.popup{
+      width: 280px !important;
+      height: 236px;
+}
+.mt15{
+      margin-top: 15px;
 }

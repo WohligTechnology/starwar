@@ -55,7 +55,7 @@ a {
   margin: 0; }
 
 .padding0 {
-  padding: 0; }
+  padding: 0 !important; }
 
 .logo-title {
   margin-top: 50px;
@@ -90,8 +90,47 @@ a {
     .login-form .list .item-input {
       padding: 8px 6px 7px; }
 
+.signup-form .list {
+  background-color: transparent;
+  padding: 12px 10px 0px 7px; }
+  .signup-form .list .item {
+    border-color: rgba(0, 0, 0, 0.54);
+    background-color: transparent;
+    color: #fff;
+    border-width: 0;
+    margin: 0px;
+    margin-bottom: 10px; }
+    .signup-form .list .item i {
+      font-size: 23px;
+      color: #bdbdbd; }
+    .signup-form .list .item input {
+      margin-left: 10px;
+      color: #909090;
+      border-bottom: 1px solid #ccc; }
+    .signup-form .list .item input::-webkit-input-placeholder {
+      color: #909090;
+      font-weight: 300; }
+    .signup-form .list .item input::-ms-input-placeholder {
+      color: #909090;
+      font-weight: 300; }
+    .signup-form .list .item input::-moz-placeholder {
+      color: #909090;
+      font-weight: 300; }
+  .signup-form .list .item-input {
+    padding: 8px 6px 7px; }
+
+.signup-form .button {
+  border-radius: 0px; }
+
 .btn-login {
   margin-top: 40px; }
+
+.popup {
+  width: 280px !important;
+  height: 236px; }
+
+.mt15 {
+  margin-top: 15px; }
 
 /*!
   Ionicons, v2.0.1
@@ -7763,7 +7802,7 @@ input[type="color"] {
   padding-top: 2px;
   padding-left: 0;
   height: 34px;
-  color: #111;
+  color: #909090;
   vertical-align: middle;
   font-size: 14px;
   line-height: 16px; }
