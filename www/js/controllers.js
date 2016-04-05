@@ -13,6 +13,9 @@ angular.module('starter.controllers', [])
 .controller('ContactCtrl', function($scope, $ionicModal, $timeout) {
 
 })
+.controller('NotificationCtrl', function($scope, $ionicModal, $timeout) {
+
+})
 .controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout,$ionicScrollDelegate) {
 
   $scope.tab = 'first';
