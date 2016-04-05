@@ -6,7 +6,7 @@ $balanced: #4caf50 !default;
 $energized: #ffc900 !default;
 $assertive: #ef473a !default;
 $royal: #886aea !default;
-$base-color: #212121 !default;
+$base-color: #a7a7a7 !default;
 $white-color: #fff !default;
 $menu-color: #8A8A8A !default;
 $bg-color: #fed65c !default;
@@ -88,6 +88,12 @@ a {
 }
 .button-full, .bar-header, .card{
       box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12) !important;
+}
+.color-base{
+  color:$base-color !important;
+}
+.color-green{
+  color:$balanced !important;
 }
 .title{
   font-weight: 300 !important;
@@ -318,8 +324,11 @@ border-radius: 2px;
 }
 .vs{
   h3{
-    font-size: 17px !important;
-    margin-top:8px !important;
+    font-size: 20px !important;
+
+  }
+  .mt8{
+    margin-top: 8px !important;
   }
   span{
     font-size: 14px;
@@ -336,12 +345,19 @@ p{
 .pt30{
   padding-top: 30px !important;
 }
-.card{
-  border-top: 4px solid  $balanced;
+.b-top-green{
+    border-top: 4px solid  $balanced;
 }
-.card2{
+.b-top-blue{
     border-top: 4px solid  $calm;
 }
+.card{
+    padding-bottom: 0px !important;
+  .item{
+    padding: 10px;
+  }
+}
+
 .pt15{
   padding-top: 15px;
 }
@@ -362,4 +378,90 @@ vertical-align: sub;
 color: #3E50B4;
     }
   }
+}
+.inn{
+  h5{
+    font-size: 15px !important;
+font-weight: 300;
+float: right;
+  }
+}
+.score{
+  h2{
+    font-size:  24px !important;
+  }
+}
+.over{
+  h3{
+    font-size: 18px !important;
+  }
+}
+.mt26{
+  margin-top: 26px !important;
+}
+.f20{
+      font-size: 20px;
+}
+.rate{
+  .item-divider{
+    background-color: $positive;
+    color:$white-color;
+    font-weight: 400;
+  }
+}
+.f20{
+  font-size: 20px !important;
+}
+.f24{
+  font-size: 24px !important;
+  vertical-align: -webkit-baseline-middle;
+}
+.team-rt1{
+  margin: 6px 0px 6px !important;
+
+border-bottom: 1px solid #ccc;
+}
+.team-rt2{
+  margin-top: 6px !important;
+}
+.inn-tabs{
+      padding: 8px 0px;
+  ul{
+    display: block;
+    text-align: center;
+    li{
+      display: inline-block;
+      font-size: 14px;
+      padding: 5px 15px;
+text-align: justify;
+    }
+    .actives{
+      border-bottom: 2px solid $positive;
+    }
+  }
+}
+.list-data{
+
+  ul{
+    display: block;
+    // margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+    li{
+      display:inline-block;
+      padding: 12px 12px;
+      &:last-child{
+        border: none;
+      }
+
+    }
+  }
+}
+.f18{
+  font-size: 18px;
+}
+.color-black{
+  color:#333;
+}
+.f16{
+  font-size: 16px;
 }

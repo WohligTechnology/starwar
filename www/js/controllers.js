@@ -13,6 +13,26 @@ angular.module('starter.controllers', [])
 .controller('ContactCtrl', function($scope, $ionicModal, $timeout) {
 
 })
+.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout,$ionicScrollDelegate) {
+
+  $scope.tab = 'first';
+$scope.classa = 'actives';
+$scope.classb = '';
+  $scope.tabchange = function(tab, a) {
+      //        console.log(tab);
+      $scope.tab = tab;
+      if (a == 1) {
+          // $ionicScrollDelegate.scrollTop();
+          $scope.classa = "actives";
+          $scope.classb = '';
+      } else {
+          // $ionicScrollDelegate.scrollTop();
+          $scope.classa = '';
+          $scope.classb = "actives";
+      }
+  };
+
+})
 
 
 .controller('LoginCtrl', function($scope, $ionicPopup, $timeout) {

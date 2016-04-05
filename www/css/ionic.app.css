@@ -36,6 +36,12 @@ a {
 .button-full, .bar-header, .card {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important; }
 
+.color-base {
+  color: #a7a7a7 !important; }
+
+.color-green {
+  color: #4caf50 !important; }
+
 .title {
   font-weight: 300 !important;
   font-size: 14px !important; }
@@ -224,7 +230,9 @@ a {
   color: #909090 !important; }
 
 .vs h3 {
-  font-size: 17px !important;
+  font-size: 20px !important; }
+
+.vs .mt8 {
   margin-top: 8px !important; }
 
 .vs span {
@@ -239,11 +247,16 @@ a {
 .pt30 {
   padding-top: 30px !important; }
 
-.card {
+.b-top-green {
   border-top: 4px solid #4caf50; }
 
-.card2 {
+.b-top-blue {
   border-top: 4px solid #20a3ff; }
+
+.card {
+  padding-bottom: 0px !important; }
+  .card .item {
+    padding: 10px; }
 
 .pt15 {
   padding-top: 15px; }
@@ -259,6 +272,73 @@ a {
   padding-right: 10px;
   vertical-align: sub;
   color: #3E50B4; }
+
+.inn h5 {
+  font-size: 15px !important;
+  font-weight: 300;
+  float: right; }
+
+.score h2 {
+  font-size: 24px !important; }
+
+.over h3 {
+  font-size: 18px !important; }
+
+.mt26 {
+  margin-top: 26px !important; }
+
+.f20 {
+  font-size: 20px; }
+
+.rate .item-divider {
+  background-color: #3e50b4;
+  color: #fff;
+  font-weight: 400; }
+
+.f20 {
+  font-size: 20px !important; }
+
+.f24 {
+  font-size: 24px !important;
+  vertical-align: -webkit-baseline-middle; }
+
+.team-rt1 {
+  margin: 6px 0px 6px !important;
+  border-bottom: 1px solid #ccc; }
+
+.team-rt2 {
+  margin-top: 6px !important; }
+
+.inn-tabs {
+  padding: 8px 0px; }
+  .inn-tabs ul {
+    display: block;
+    text-align: center; }
+    .inn-tabs ul li {
+      display: inline-block;
+      font-size: 14px;
+      padding: 5px 15px;
+      text-align: justify; }
+    .inn-tabs ul .actives {
+      border-bottom: 2px solid #3e50b4; }
+
+.list-data ul {
+  display: block;
+  border-bottom: 1px solid #ccc; }
+  .list-data ul li {
+    display: inline-block;
+    padding: 12px 12px; }
+    .list-data ul li:last-child {
+      border: none; }
+
+.f18 {
+  font-size: 18px; }
+
+.color-black {
+  color: #333; }
+
+.f16 {
+  font-size: 16px; }
 
 /*!
   Ionicons, v2.0.1
@@ -3580,7 +3660,7 @@ body,
   overflow: hidden;
   margin: 0;
   padding: 0;
-  color: #212121;
+  color: #a7a7a7;
   word-wrap: break-word;
   font-size: 14px;
   font-family: -apple-system;
@@ -3840,7 +3920,7 @@ cite {
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  color: #212121;
+  color: #a7a7a7;
   font-weight: 500;
   font-family: "Proxima Nova", sans-serif;
   line-height: 1.2; }
