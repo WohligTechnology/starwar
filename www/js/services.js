@@ -19,7 +19,7 @@ angular.module('starter.services', ['httpService'])
         httpService.get(vigzserver + "match/getAll", form, callback, errCallback);
       },
       getMatch: function(form, callback, errCallback) {
-        httpService.post(vigzserver + "match/get", form, callback, errCallback);
+        httpService.get(vigzserver + "match/get", form, callback, errCallback);
       },
       chagePassword: function(form, callback, errCallback) {
         $http.post(vigzserver + "user/chagePassword", form).then(callback, errCallback);

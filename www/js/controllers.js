@@ -8,7 +8,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
   MyServices.getAllMatch(form, function(data) {
     $scope.matches = data.data;
-    _.each($scope.matches,function(n) {
+    _.each($scope.matches, function(n) {
       n.timestamp = moment(n.startTime).valueOf();
     });
     console.log(data.data[1]);
@@ -23,11 +23,21 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('NotificationCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate,$stateParams) {
+.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate, $stateParams,MyServices) {
   $scope.tab = 'first';
   $scope.classa = 'actives';
   $scope.classb = '';
+  var form = {
+    id: $stateParams.id
+  };
 
+  MyServices.getMatch(form, function(data) {
+    $scope.match = data.data;
+    $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
+    console.log(data.data);
+  }, function(data) {
+    console.log(data);
+  });
   $scope.tabchange = function(tab, a) {
     //        console.log(tab);
     $scope.tab = tab;
@@ -79,16 +89,13 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 })
 
-.controller('SettingCtrl', function($scope, $stateParams,$ionicPopup, $timeout, MyServices, $state) {
+.controller('SettingCtrl', function($scope, $stateParams, $ionicPopup, $timeout, MyServices, $state) {
 
   $scope.Success = function() {
     var alertPopup = $ionicPopup.alert({
       scope: $scope,
       templateUrl: 'templates/chanagepassword.html',
     });
-
-
-
 
 
     alertPopup.then(function(res) {

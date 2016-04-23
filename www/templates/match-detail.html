@@ -3,6 +3,7 @@
     <!-- <div class="over-lay">
       <h1 class="text-up">wicket</h1>
     </div> -->
+
     <div class="card b-top-green">
       <div class="item item-text-wrap">
         <div class="card-innner">
@@ -15,7 +16,8 @@
               </div>
               <div class="col-33">
                 <div class="inn">
-                  <h5 class="text-center color-base">2<sup>nd</sup> Innings</h5>
+                  <h5 class="text-center color-base" ng-if="match.isSecondInning">2<sup>nd</sup> Innings</h5>
+                  <h5 class="text-center color-base" ng-if="!match.isSecondInning">1<sup>st</sup> Innings</h5>
                 </div>
               </div>
               <div class="col-33">
@@ -28,13 +30,13 @@
             <div class="row">
               <div class="col-33">
                 <div class="score">
-                  <h2 class="font-light color-green">181/3</h2>
+                  <h2 class="font-light color-green">{{match.team1Runs}}/{{match.team1Wicket}}</h2>
                 </div>
                 <div class="over">
-                  <h3 class="font-light color-base">(OVR: 20)</h3>
+                  <h3 class="font-light color-base">(OVR: {{match.team1Overs}})</h3>
                 </div>
                 <div class="team pull-left">
-                  <h1 class="margin0 text-up text-color font-light">IND</h1>
+                  <h1 class="margin0 text-up text-color font-light">{{match.team1}}</h1>
                 </div>
               </div>
               <div class="col-33">
@@ -44,13 +46,15 @@
               </div>
               <div class="col-33">
                 <div class="score pull-right">
-                  <h2 class="font-light postive-color">161/9</h2>
+                  <h2 class="font-light postive-color">{{match.team2Runs}}/{{match.team2Wicket}}</h2>
                 </div>
+                <div class="clearfix"></div>
                 <div class="over pull-right">
-                  <h3 class="font-light color-base">(OVR: 19.2)</h3>
+                  <h3 class="font-light color-base">(OVR: {{match.team2Overs}})</h3>
                 </div>
+                <div class="clearfix"></div>
                 <div class="team pull-right">
-                  <h1 class="margin0 text-up text-color font-light">zim</h1>
+                  <h1 class="margin0 text-up text-color font-light">{{match.team2}}</h1>
                 </div>
               </div>
             </div>
