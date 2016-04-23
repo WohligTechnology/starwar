@@ -342,6 +342,20 @@ a {
 .f16 {
   font-size: 16px; }
 
+.popup-head {
+  padding: 0px 0px !important;
+  border-bottom: 1px solid rgba(238, 238, 238, 0);
+  text-align: center; }
+
+.cross, .green {
+  background: red;
+  color: #fff;
+  padding: 15px 10px;
+  font-size: 22px; }
+
+.green {
+  background: green; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/

@@ -6,20 +6,22 @@
 </div>
 <div class="padding-horizontal">
 <div class="c-password">
-  <form action="">
+  <form action="" name="changePassword">
     <div class="signup-form">
     <div class="list">
     <label class="item item-input">
       <i class="ln-lock"></i>
-      <input type="text" placeholder="Old password">
+      <input type="text" name="oldpassword" placeholder="Old password" required>
+        <p class="colpad" ng-show="changePassword.oldpassword.$error.required && changePassword.oldpassword.$dirty">Old Password are wrong</p>
     </label>
     <label class="item item-input">
          <i class="ln-lock"></i>
-      <input type="number" placeholder="New password">
+      <input type="number" name="newpassword" placeholder="New password" required>
+
     </label>
     <label class="item item-input">
          <i class="ln-lock"></i>
-      <input type="number" placeholder="Confirm password">
+      <input type="number" name="confirmpassword" placeholder="Confirm password" required>
     </label>
 
   </div>
@@ -29,7 +31,7 @@
 </div>
 </div>
 <div class="mt60">
-  <button class="button button-full button-positive font-light" ion-ripple>
+  <button class="button button-full button-positive font-light" ion-ripple ng-click="Success()">
   Save
   </button>
   <button class="button button-full button-positive font-light" ion-ripple>

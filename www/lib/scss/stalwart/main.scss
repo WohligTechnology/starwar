@@ -483,3 +483,19 @@ border-bottom: 1px solid #ccc;
 //       color: $positive;
 //     }
 // }
+.popup-head {
+    padding: 0px 0px !important;
+    border-bottom: 1px solid rgba(238, 238, 238, 0);
+    text-align: center;
+}
+.cross {
+    background: red;
+    color: #fff;
+    padding: 15px 10px;
+    font-size: 22px;
+}
+.green {
+  @extend .cross;
+    background: green;
+
+}
