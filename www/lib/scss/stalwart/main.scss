@@ -319,6 +319,12 @@ border-radius: 2px;
     background-color: $calm;
   }
 }
+.status3{
+  @extend .status;
+  span{
+    background-color: $assertive;
+  }
+}
 .text-color{
   color:$input-color !important;
 }
@@ -351,6 +357,10 @@ p{
 .b-top-blue{
     border-top: 4px solid  $calm;
 }
+.b-top-red{
+    border-top: 4px solid  $assertive;
+}
+
 .card{
     padding-bottom: 0px !important;
         margin: 10px 10px !important;

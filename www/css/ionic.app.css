@@ -215,7 +215,7 @@ a {
   font-weight: 400;
   font-size: 14px; }
 
-.status span, .status2 span {
+.status span, .status2 span, .status3 span {
   color: #fff;
   font-size: 12px;
   background-color: #4caf50;
@@ -225,6 +225,9 @@ a {
 
 .status2 span {
   background-color: #20a3ff; }
+
+.status3 span {
+  background-color: #ef473a; }
 
 .text-color {
   color: #909090 !important; }
@@ -252,6 +255,9 @@ a {
 
 .b-top-blue {
   border-top: 4px solid #20a3ff; }
+
+.b-top-red {
+  border-top: 4px solid #ef473a; }
 
 .card {
   padding-bottom: 0px !important;
