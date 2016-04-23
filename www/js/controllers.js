@@ -2,7 +2,9 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('HomeCtrl', function($scope, $ionicModal, $timeout) {})
+.controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
+
+})
 
 .controller('ProfileCtrl', function($scope, $ionicModal, $timeout) {})
 
@@ -38,11 +40,11 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
   $scope.loginTap = function(form) {
     MyServices.userLogin(form, function(data) {
+      console.log(data);
       $state.go("app.home");
     }, function(data) {
       console.log(data);
     });
-
   };
   $scope.showSuccess = function() {
     var alertPopup = $ionicPopup.alert({
