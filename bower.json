@@ -5,6 +5,12 @@
     "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "dependencies": {
-    "ion-ripple": "^1.0.8"
+    "angular-websql": "^1.0.2",
+    "jQuery-MD5": "https://github.com/placemarker/jQuery-MD5.git",
+    "ion-ripple": "^1.0.8",
+    "jStorage": "https://github.com/andris9/jStorage.git#^0.4.12",
+    "jquery": "^2.2.3",
+    "lodash": "^4.11.2",
+    "moment": "^2.13.0"
   }
 }
