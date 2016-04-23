@@ -8,6 +8,9 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
   MyServices.getAllMatch(form, function(data) {
     $scope.matches = data.data;
+    _.each($scope.matches,function(n) {
+      n.timestamp = moment(n.startTime).valueOf();
+    });
     console.log(data.data[1]);
   }, function(data) {
     console.log(data);

@@ -24,8 +24,8 @@
               </div>
               <div class="col-50" ng-if="match.status=='pre'">
                 <div class="vs text-center">
-                  <span class="text-color font-light">Sun, 15 Mar 2016</span>
-                  <p class="text-color font-light">19:30 IST</p>
+                  <span class="text-color font-light">{{match.timestamp|date:'EEEE, MMM d, y'}}</span>
+                  <p class="text-color font-light">{{match.timestamp|date:'H:mm'}} IST</p>
                 </div>
               </div>
               <div class="col-25">
