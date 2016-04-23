@@ -3,7 +3,14 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {})
 
 .controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
-
+  var form = {
+    page: 1
+  };
+  MyServices.getAllMatch(form, function(data) {
+    console.log(data);
+  }, function(data) {
+    console.log(data);
+  });
 })
 
 .controller('ProfileCtrl', function($scope, $ionicModal, $timeout) {})
@@ -16,6 +23,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   $scope.tab = 'first';
   $scope.classa = 'actives';
   $scope.classb = '';
+
   $scope.tabchange = function(tab, a) {
     //        console.log(tab);
     $scope.tab = tab;

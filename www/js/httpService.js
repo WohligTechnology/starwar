@@ -55,15 +55,16 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
             //HTTP SERVER CALL
             var httpCall;
             if (type == "GET") {
-                httpCall = $http.get(url, req);
+                httpCall = $http.get(url, {params:req});
             } else if (type == "POST") {
                 httpCall = $http.post(url, req);
             }
 
             //HTTP SUCCESS
-            httpCall.then(function(data, status) {
-                if (status == 200) { // STATUS 200
-                    var md5 = $.md5(JSON.stringify(data));
+            httpCall.then(function(data) {
+               var data2 = data.data;
+                if (data.status == 200) { // STATUS 200
+                    var md5 = $.md5(JSON.stringify(data2));
                     if (sqlResponse && md5 != sqlResponse.md5) {
                         //UPDATE
                         console.log("UPDATE");
@@ -72,14 +73,14 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
                             "url": url,
                             "type": type,
                             "request": JSON.stringify(req),
-                            "response": JSON.stringify(data),
+                            "response": JSON.stringify(data2),
                             "use": sqlResponse.use + 1
                         }, {
                             "id": sqlResponse.id
                         });
 
                         if (callback) {
-                            callback(data, status);
+                            callback(data2, status);
                         }
                     } else if (!sqlResponse) {
                         //INSERT
@@ -89,11 +90,11 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
                             "url": url,
                             "type": type,
                             "request": JSON.stringify(req),
-                            "response": JSON.stringify(data),
+                            "response": JSON.stringify(data2),
                             "use": 0
                         });
                         if (callback) {
-                            callback(data, status);
+                            callback(data2, status);
                         }
                     } else if (sqlResponse && md5 == sqlResponse.md5) {
                         console.log("No Change");
