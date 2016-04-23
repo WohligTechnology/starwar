@@ -1,6 +1,6 @@
 <ion-view view-title="STALWART">
   <ion-content class="home-bg">
-    <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='completed'}" ng-repeat="match in matches" ui-sref="app.match-detail" ion-ripple>
+    <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}" ng-repeat="match in matches" ui-sref="app.match-detail" ion-ripple>
       <div class="item item-text-wrap">
         <div class="card-innner">
 
@@ -8,7 +8,7 @@
             <div class="ser display-inline pull-left">
               <span>{{match.cupName}}</span>
             </div>
-            <div class="display-inline pull-right" ng-class="{'status2': match.status=='pre','status': match.status=='live','status3': match.status=='completed'}"><span>{{match.status}}</span></div>
+            <div class="display-inline pull-right" ng-class="{'status2': match.status=='pre','status': match.status=='live','status3': match.status=='complete'}"><span>{{match.status}}</span></div>
           </div>
           <div class="card-body pt30">
             <div class="row">
