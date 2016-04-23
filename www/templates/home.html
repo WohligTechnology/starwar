@@ -1,6 +1,6 @@
 <ion-view view-title="STALWART">
   <ion-content class="home-bg">
-    <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}" ng-repeat="match in matches" ui-sref="app.match-detail" ion-ripple>
+    <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}" ng-repeat="match in matches" ui-sref="app.match-detail({id:match._id})" ion-ripple>
       <div class="item item-text-wrap">
         <div class="card-innner">
 

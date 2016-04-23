@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     })
     .state('app.match-detail', {
-      url: '/match-detail',
+      url: '/match-detail/:id',
       views: {
         'menuContent': {
           templateUrl: 'templates/match-detail.html',

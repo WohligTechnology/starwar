@@ -23,7 +23,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('NotificationCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate) {
+.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate,$stateParams) {
   $scope.tab = 'first';
   $scope.classa = 'actives';
   $scope.classb = '';
