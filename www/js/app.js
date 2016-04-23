@@ -33,20 +33,20 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
 
   .state('app.profile', {
-    url: '/profile',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/profile.html',
-        controller: 'ProfileCtrl'
+      url: '/profile',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/profile.html',
+          controller: 'ProfileCtrl'
+        }
       }
-    }
-  })
-  .state('login', {
+    })
+    .state('login', {
       url: "/login",
       templateUrl: "templates/login.html",
       controller: 'LoginCtrl'
-  })
-  .state('app.home', {
+    })
+    .state('app.home', {
       url: '/home',
       views: {
         'menuContent': {
@@ -98,3 +98,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
 
 ;
+
+
+function rateCalc(rate) {
+  var realRate = rate + 1;
+  return (realRate / (realRate - 1)) - 1;
+}
+
+function getBalls(data) {
+  console.log(data);
+  var overs = parseInt(data);
+  var balls = (data - overs) * 10;
+  return Math.round(overs * 6 + balls);
+
+}

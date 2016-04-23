@@ -23,7 +23,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('NotificationCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate, $stateParams,MyServices) {
+.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate, $stateParams, MyServices) {
   $scope.tab = 'first';
   $scope.classa = 'actives';
   $scope.classb = '';
@@ -31,13 +31,6 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     id: $stateParams.id
   };
 
-  MyServices.getMatch(form, function(data) {
-    $scope.match = data.data;
-    $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
-    console.log(data.data);
-  }, function(data) {
-    console.log(data);
-  });
   $scope.tabchange = function(tab, a) {
     //        console.log(tab);
     $scope.tab = tab;
@@ -51,6 +44,61 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.classb = "actives";
     }
   };
+
+  MyServices.getMatch(form, function(data) {
+    $scope.match = data.data;
+    $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
+
+    if ($scope.match.firstBat == 1) {
+      $scope.match.inning1Overs = $scope.match.team1Overs;
+      $scope.match.inning2Overs = $scope.match.team2Overs;
+    } else if ($scope.match.firstBat == 2) {
+      $scope.match.inning1Overs = $scope.match.team2Overs;
+      $scope.match.inning2Overs = $scope.match.team1Overs;
+    }
+
+    if ($scope.match.isSecondInning) {
+
+      $scope.match.inning1Overs = 99999;
+
+      $scope.tabchange('second', 2);
+      if ($scope.match.bat == 1) {
+        $scope.match.playedBalls = getBalls($scope.match.team1Overs);
+        $scope.match.currentRuns = $scope.match.team1Runs;
+        $scope.match.targetRuns = $scope.match.team2Runs + 1;
+      } else if ($scope.match.bat == 2) {
+        $scope.match.playedBalls = getBalls($scope.match.team2Overs);
+        $scope.match.currentRuns = $scope.match.team2Runs;
+        $scope.match.targetRuns = $scope.match.team1Runs + 1;
+      }
+      $scope.match.totalBalls = getBalls($scope.match.newOvers);
+      $scope.match.remainingBalls = $scope.match.totalBalls - $scope.match.playedBalls;
+
+      $scope.match.remainingRuns = $scope.match.targetRuns - $scope.match.currentRuns;
+
+    }
+
+
+
+    if ($scope.match.favorite == 1) {
+      $scope.match.matchRate1 = $scope.match.rate1;
+      $scope.match.matchRate2 = $scope.match.rate2;
+
+      $scope.match.matchRate3 = rateCalc($scope.match.matchRate2);
+      $scope.match.matchRate4 = rateCalc($scope.match.matchRate1);
+    }
+    if ($scope.match.favorite == 2) {
+      $scope.match.matchRate3 = $scope.match.rate1;
+      $scope.match.matchRate4 = $scope.match.rate2;
+
+      $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
+      $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
+    }
+    console.log(data.data);
+  }, function(data) {
+    console.log(data);
+  });
+
 
 })
 
