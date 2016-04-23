@@ -1,30 +1,34 @@
 <ion-view>
   <ion-content>
-<div class="pop text-center">
-  <!-- <div class="popup-head pull-right">
+    <div class="pop text-center">
+      <!-- <div class="popup-head pull-right">
     <img src="img/close.png" alt="" name="close">
   </div> -->
- <div class="popup-body">
-   <div class="signup-form">
-   <div class="list">
-   <label class="item item-input">
-     <i class="ln-user"></i>
-     <input type="text" placeholder="Enter full name">
-   </label>
-   <label class="item item-input">
-        <i class="ln-iphone"></i>
-     <input type="number" placeholder="Enter mobile number">
-   </label>
+      <div class="popup-body">
+        <div class="signup-form">
+          <form name="signup">
+            <div class="list">
+              <label class="item item-input">
+                <i class="ln-user"></i>
+                <input type="text" placeholder="Enter full name" name="name">
+              </label>
+              <label class="item item-input">
+                <i class="ln-iphone"></i>
+                <input type="number" placeholder="Enter mobile number" name="mobile">
+                <p class="colpad" ng-show="login.mobile.$error.required && login.mobile.$dirty">Invalid Mobile Number</p>
+              </label>
 
- </div>
- </div>
- </div>
- <div class="popup-buttons padding0 mt15">
-   <button class="button button-full button-positive font-light" ng-click="closPop()" ion-ripple>
-  Request
-   </button>
- </div>
+            </div>
+            <!-- <h4>Thank You For Request !!</h4> -->
+          </form>
+        </div>
+      </div>
+      <div class="popup-buttons padding0 mt15">
+        <button class="button button-full button-positive font-light" ng-click="closPop()" ion-ripple>
+          Request
+        </button>
+      </div>
 
-</div>
+    </div>
   </ion-content>
 </ion-view>
