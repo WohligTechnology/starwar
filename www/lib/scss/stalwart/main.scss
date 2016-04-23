@@ -353,6 +353,7 @@ p{
 }
 .card{
     padding-bottom: 0px !important;
+        margin: 10px 10px !important;
   .item{
     padding: 10px;
   }
@@ -432,8 +433,9 @@ border-bottom: 1px solid #ccc;
     li{
       display: inline-block;
       font-size: 14px;
-      padding: 5px 15px;
-text-align: justify;
+      padding: 5px 26px;
+      text-align: justify;
+      color: #333;
     }
     .actives{
       border-bottom: 2px solid $positive;
