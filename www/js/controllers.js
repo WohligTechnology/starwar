@@ -7,7 +7,8 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     page: 1
   };
   MyServices.getAllMatch(form, function(data) {
-    console.log(data);
+    $scope.matches = data.data;
+    console.log(data.data[1]);
   }, function(data) {
     console.log(data);
   });
