@@ -135,7 +135,7 @@
             </li>
             <li>
               <div class="div-rates f24 " ng-class="{'color-green':match.inning1Overs >= ses.over,'postive-color':match.inning1Overs < ses.over}" >
-                {{ses.run}} - {{ses.run + 1}} <span class="f16" ng-if="match.inning1Overs >= ses.over">(Completed)</span>
+                {{ses.run}} <span ng-if="match.inning1Overs < ses.over">- {{ses.run + 1}}</span> <span class="f16" ng-if="match.inning1Overs >= ses.over">(Completed)</span>
               </div>
             </li>
           </ul>
@@ -154,7 +154,7 @@
             </li>
             <li>
               <div class="div-rates f24 " ng-class="{'color-green':match.inning2Overs >= ses.over,'postive-color':match.inning2Overs < ses.over}" >
-                {{ses.run}} - {{ses.run + 1}} <span class="f16" ng-if="match.inning2Overs >= ses.over">(Completed)</span>
+                {{ses.run}} <span ng-if="match.inning2Overs < ses.over">- {{ses.run + 1}}</span>  <span class="f16" ng-if="match.inning2Overs >= ses.over">(Completed)</span>
               </div>
             </li>
           </ul>
