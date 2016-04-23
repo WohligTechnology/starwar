@@ -7,11 +7,12 @@
       </div>
     </div>
     <div class="login-form padding-horizontal">
-      <form >
+      <form name="login">
         <div class="list">
           <label class="item item-input">
                <i class="icon ln-iphone"></i>
-            <input type="tel" placeholder="Mobile number" ng-model="form.contact">
+            <input type="tel" placeholder="Mobile number" name="mobile" ng-model="form.contact" required>
+              <p class="colpad" ng-show="login.mobile.$error.required && login.mobile.$dirty">Invalid Mobile Number</p>
           </label>
           <label class="item item-input">
                <i class="icon ln-lock"></i>

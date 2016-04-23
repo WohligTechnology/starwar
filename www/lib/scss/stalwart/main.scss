@@ -311,6 +311,7 @@ background-color: $balanced;
 padding: 3px 8px;
 font-weight: 300;
 border-radius: 2px;
+  text-transform: uppercase;
   }
 }
 .status2{
@@ -323,6 +324,7 @@ border-radius: 2px;
   @extend .status;
   span{
     background-color: $assertive;
+
   }
 }
 .text-color{

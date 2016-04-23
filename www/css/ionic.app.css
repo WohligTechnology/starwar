@@ -221,7 +221,8 @@ a {
   background-color: #4caf50;
   padding: 3px 8px;
   font-weight: 300;
-  border-radius: 2px; }
+  border-radius: 2px;
+  text-transform: uppercase; }
 
 .status2 span {
   background-color: #20a3ff; }
