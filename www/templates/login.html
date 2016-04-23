@@ -7,22 +7,23 @@
       </div>
     </div>
     <div class="login-form padding-horizontal">
-      <form action="">
+
+      <form >
         <div class="list">
           <label class="item item-input">
                <i class="icon ln-iphone"></i>
-            <input type="number" placeholder="Mobile number">
+            <input type="tel" placeholder="Mobile number" ng-model="form.contact">
           </label>
           <label class="item item-input">
                <i class="icon ln-lock"></i>
-            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Password" ng-model="form.password">
           </label>
 
         </div>
       </form>
     </div>
     <div class="btn-login">
-      <button class="button button-full button-positive font-light" ui-sref="app.home" ion-ripple>
+      <button class="button button-full button-positive font-light" ng-click="loginTap(form);" ion-ripple>
   Login
 </button>
 <div class="or">
