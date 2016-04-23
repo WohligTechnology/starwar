@@ -76,4 +76,25 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 })
 
-.controller('SettingCtrl', function($scope, $stateParams) {});
+.controller('SettingCtrl', function($scope, $stateParams,$ionicPopup, $timeout, MyServices, $state) {
+
+  $scope.Success = function() {
+    var alertPopup = $ionicPopup.alert({
+      scope: $scope,
+      templateUrl: 'templates/chanagepassword.html',
+    });
+
+
+
+
+
+    alertPopup.then(function(res) {
+      console.log('Thanks');
+    });
+
+    $scope.closPop = function() {
+      console.log("Close called");
+      alertPopup.close();
+    };
+  };
+});
