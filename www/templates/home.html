@@ -1,50 +1,53 @@
 <ion-view view-title="STALWART">
   <ion-content class="home-bg">
-    <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}" ng-repeat="match in matches" ui-sref="app.match-detail({id:match._id})" ion-ripple>
-      <div class="item item-text-wrap">
-        <div class="card-innner">
+    <div class="" collection-repeat="match in matches" item-height="110px" >
+      <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}" ui-sref="app.match-detail({id:match._id})" ion-ripple>
+        <div class="item item-text-wrap">
+          <div class="card-innner">
 
-          <div class="card-head">
-            <div class="ser display-inline pull-left">
-              <span>{{match.cupName}}</span>
+            <div class="card-head">
+              <div class="ser display-inline pull-left">
+                <span>{{match.cupName}}</span>
+              </div>
+              <div class="display-inline pull-right" ng-class="{'status2': match.status=='pre','status': match.status=='live','status3': match.status=='complete'}"><span>{{match.status}}</span></div>
             </div>
-            <div class="display-inline pull-right" ng-class="{'status2': match.status=='pre','status': match.status=='live','status3': match.status=='complete'}"><span>{{match.status}}</span></div>
-          </div>
-          <div class="card-body pt30">
-            <div class="row">
-              <div class="col-25">
-                <div class="team pull-left">
-                  <h1 class="margin0 text-up text-color">{{match.team1}}</h1>
+            <div class="card-body pt30">
+              <div class="row">
+                <div class="col-25">
+                  <div class="team pull-left">
+                    <h1 class="margin0 text-up text-color">{{match.team1}}</h1>
+                  </div>
                 </div>
-              </div>
-              <div class="col-50" ng-if="match.status!='pre'">
-                <div class="vs text-center mt8">
-                  <h3 class="margin0 text-color font-light">VS</h3>
+                <div class="col-50" ng-if="match.status!='pre'">
+                  <div class="vs text-center mt8">
+                    <h3 class="margin0 text-color font-light">VS</h3>
+                  </div>
                 </div>
-              </div>
-              <div class="col-50" ng-if="match.status=='pre'">
-                <div class="vs text-center">
-                  <span class="text-color font-light">{{match.timestamp|date:'EEEE, MMM d, y'}}</span>
-                  <p class="text-color font-light">{{match.timestamp|date:'H:mm'}} IST</p>
+                <div class="col-50" ng-if="match.status=='pre'">
+                  <div class="vs text-center" style="margin-top:-10px;">
+                    <span class="text-color font-light">{{match.timestamp|date:'EEEE, MMM d, y'}}</span>
+                    <p class="text-color font-light">{{match.timestamp|date:'H:mm'}} IST</p>
+                  </div>
                 </div>
-              </div>
-              <div class="col-25">
-                <div class="team pull-right">
-                  <h1 class="margin0 text-up text-color">{{match.team2}}</h1>
+                <div class="col-25">
+                  <div class="team pull-right">
+                    <h1 class="margin0 text-up text-color">{{match.team2}}</h1>
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- <div class="card-footer text-center pt15">
+              <h4 class="font-light text-color">Zim need 20 runs in 4 balls to win</h4>
+            </div> -->
           </div>
-          <!-- <div class="card-footer text-center pt15">
-            <h4 class="font-light text-color">Zim need 20 runs in 4 balls to win</h4>
-          </div> -->
         </div>
       </div>
+        <!-- <div class="card">
+    <div class="item item-text-wrap">
+      This is a basic Card which contains an item that has wrapping text.
     </div>
-      <!-- <div class="card">
-  <div class="item item-text-wrap">
-    This is a basic Card which contains an item that has wrapping text.
-  </div>
-</div> -->
+  </div> -->
+    </div>
+
   </ion-content>
 </ion-view>
