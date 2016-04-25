@@ -186,22 +186,42 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
     });
   };
-  $scope.showSuccess = function() {
+  $scope.showSignup = function() {
     var alertPopup = $ionicPopup.alert({
       scope: $scope,
       templateUrl: 'templates/signup.html',
     });
 
+    $scope.form2 = {name:"Chintan Shah",contact:"9819222221"};
+    $scope.signUpTap  = function() {
+      MyServices.becomeMember($scope.form2,function(data) {
+        alertPopup.close();
+        if(data.data.value) {
+          //become member success
+          var alertPopup2 = $ionicPopup.alert({
+            scope: $scope,
+            templateUrl: 'templates/becomeMemberSuccess.html',
+          });
+          $timeout(function() {
+            alertPopup2.close();
+          },1500);
+        }
+        else {
+          //become member error
+          alertPopup3 = $ionicPopup.alert({
+            scope: $scope,
+            templateUrl: 'templates/becomeMemberError.html',
+          });
+          $timeout(function() {
+            alertPopup3.close();
+          },1500);
+        }
+      },function() {
 
+      });
 
-
-
-    alertPopup.then(function(res) {
-      console.log('Thanks');
-    });
-
+    };
     $scope.closPop = function() {
-      console.log("Close called");
       alertPopup.close();
     };
   };

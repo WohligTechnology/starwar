@@ -10,11 +10,11 @@
             <div class="list">
               <label class="item item-input">
                 <i class="ln-user"></i>
-                <input type="text" placeholder="Enter full name" name="name">
+                <input type="text" placeholder="Enter full name" name="name" ng-model="form2.name">
               </label>
               <label class="item item-input">
                 <i class="ln-iphone"></i>
-                <input type="number" placeholder="Enter mobile number" name="mobile">
+                <input type="tel" placeholder="Enter mobile number" name="mobile" ng-model="form2.contact">
                 <p class="colpad" ng-show="login.mobile.$error.required && login.mobile.$dirty">Invalid Mobile Number</p>
               </label>
 
@@ -24,8 +24,12 @@
         </div>
       </div>
       <div class="popup-buttons padding0 mt15">
-        <button class="button button-full button-positive font-light" ng-click="closPop()" ion-ripple>
+        <button class="button button-full button-positive font-light" ng-click="signUpTap()" ion-ripple>
           Request
+        </button>
+
+        <button class="button button-full button-assertive font-light" ng-click="closPop()" ion-ripple>
+          Calcel
         </button>
       </div>
 
