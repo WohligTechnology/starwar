@@ -4,14 +4,14 @@
       <h1 class="text-up">wicket</h1>
     </div> -->
 
-    <div class="card b-top-green">
+    <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}">
       <div class="item item-text-wrap">
         <div class="card-innner">
           <div class="card-head">
             <div class="row padding0">
               <div class="col-33">
                 <div class="ser display-inline pull-left">
-                  <span>T20 WC 2016</span>
+                  <span>{{match.cupName}}</span>
                 </div>
               </div>
               <div class="col-33">
@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div class="col-33">
-                <div class="status display-inline pull-right"><span>LIVE</span></div>
+                <div class="display-inline pull-right" ng-class="{'status2': match.status=='pre','status': match.status=='live','status3': match.status=='complete'}"><span>LIVE</span></div>
               </div>
             </div>
 
@@ -61,14 +61,20 @@
           </div>
           <div class="card-footer text-center" ng-if="match.isSecondInning">
             <h4 class="font-light text-color">Zim need <span class="f20 postive-color">{{match.remainingRuns}} runs</span> in <span class="f20 postive-color">{{match.remainingBalls}} balls</span> to win</h4>
+
           </div>
+          <div class="card-footer text-center" ng-if="match.comment && match.comment!=''">
+            <h4 class="font-light text-color"><span class="f20 assertive-color">{{match.comment}}</span></h4>
+
+          </div>
+
         </div>
       </div>
     </div>
     <div class="card rate">
-      <div class="item item-divider font-light">
+      <!-- <div class="item item-divider font-light">
         RATE
-      </div>
+      </div> -->
       <div class="item item-text-wrap">
         <div class="row">
           <div class="col-50"></div>
