@@ -25,7 +25,7 @@ angular.module('starter.services', ['httpService'])
         $http.post(vigzserver + "user/chagePassword", form).then(callback, errCallback);
       },
       calcExpiry:function() {
-        return moment($.jStorage.get("serverTime")).diff($.jStorage.get("expiry"));
+        return moment($.jStorage.get("expiry")).diff($.jStorage.get("serverTime"),'days');
       },
       expiredCallback: function() {
         var alertPopup = {};

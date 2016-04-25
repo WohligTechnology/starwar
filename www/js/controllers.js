@@ -1,6 +1,16 @@
+var Global = {};
+
 angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {})
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,MyServices) {
+  Global.expiryCalc = function() {
+    $scope.expiryDays = MyServices.calcExpiry();
+    if($scope.expiryDays < 0) {
+    MyServices.expiredCallback();
+    }
+  };
+  Global.expiryCalc();
+})
 
 .controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
   var form = {
@@ -8,8 +18,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
   MyServices.getAllMatch(form, function(data) {
     $.jStorage.set("serverTime",data.serverTime);
-    $scope.expiryTime = MyServices.calcExpiry();
-    console.log(data);
+    Global.expiryCalc();
     $scope.matches = data.data;
     _.each($scope.matches, function(n) {
       n.timestamp = moment(n.startTime).valueOf();
@@ -60,6 +69,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
   MyServices.getMatch(form, function(data) {
     $.jStorage.set("serverTime",data.serverTime);
+    Global.expiryCalc();
     $scope.match = data.data;
     $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
 
