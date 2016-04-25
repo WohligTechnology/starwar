@@ -1,14 +1,9 @@
 <ion-view view-title="STALWART">
   <ion-content class="home-bg">
-    <div class="card">
-    <div class="item item-text-wrap ">
-      This is a basic Card which contains an item that has wrapping text.
+    <div class="card" ng-repeat="noti in notifications">
+      <div class="item item-text-wrap ">
+        {{noti.title}}
+      </div>
     </div>
-  </div>
-  <div class="card">
-  <div class="item item-text-wrap">
-    This is a basic Card which contains an item that has wrapping text.
-  </div>
-</div>
   </ion-content>
 </ion-view>

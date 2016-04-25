@@ -7,11 +7,13 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     page: 1
   };
   MyServices.getAllMatch(form, function(data) {
+    $.jStorage.set("serverTime",data.serverTime);
+    $scope.expiryTime = MyServices.calcExpiry();
+    console.log(data);
     $scope.matches = data.data;
     _.each($scope.matches, function(n) {
       n.timestamp = moment(n.startTime).valueOf();
     });
-    console.log(data.data[1]);
   }, function(data) {
     console.log(data);
   });
@@ -21,7 +23,18 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('ContactCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('NotificationCtrl', function($scope, $ionicModal, $timeout) {})
+.controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices) {
+  var form = {
+    page: 1
+  };
+  MyServices.getAllNotification(form, function(data) {
+    console.log(data);
+    $scope.notifications = data.data;
+  }, function(data) {
+    console.log(data);
+  });
+
+})
 
 .controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate, $stateParams, MyServices) {
   $scope.tab = 'first';
@@ -46,6 +59,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   MyServices.getMatch(form, function(data) {
+    $.jStorage.set("serverTime",data.serverTime);
     $scope.match = data.data;
     $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
 
@@ -103,6 +117,38 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 })
 
 .controller('LoginCtrl', function($scope, $ionicPopup, $timeout, MyServices, $state) {
+  var alertPopup = {};
+  $scope.closPop = function() {
+    console.log("Close called");
+    alertPopup.close();
+  };
+  $scope.loginSuccess = function() {
+    alertPopup = $ionicPopup.alert({
+      scope: $scope,
+      templateUrl: 'templates/loginSuccess.html',
+    });
+    $timeout(function() {
+      $scope.closPop();
+    }, 1500);
+
+    alertPopup.then(function(res) {
+      console.log('Thanks');
+    });
+  };
+
+  $scope.errorCallback = function() {
+    alertPopup = $ionicPopup.alert({
+      scope: $scope,
+      templateUrl: 'templates/loginError.html',
+    });
+    $timeout(function() {
+      $scope.closPop();
+    }, 3000);
+
+    alertPopup.then(function(res) {
+      console.log('Thanks');
+    });
+  };
 
   $scope.form = {
     contact: "9819222221",
@@ -111,9 +157,23 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   $scope.loginTap = function(form) {
     MyServices.userLogin(form, function(data) {
       console.log(data);
-      $state.go("app.home");
+      if (data.data.value) {
+        $scope.loginSuccess();
+        console.log(data.data.data.expiry);
+        $.jStorage.set("expiry",data.data.data.expiry);
+        $state.go("app.home");
+
+      } else {
+        if (data.data.error == "IncorrectCredentials") {
+          $scope.errorCallback();
+        } else if (data.data.error == "DateExpired") {
+          MyServices.expiredCallback();
+        }
+      }
+
     }, function(data) {
       console.log(data);
+
     });
   };
   $scope.showSuccess = function() {
@@ -138,21 +198,60 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 })
 
 .controller('SettingCtrl', function($scope, $stateParams, $ionicPopup, $timeout, MyServices, $state) {
+  $scope.form = {
+    oldPassword: "",
+    newPassword: ""
+  };
+  var alertPopup = {};
 
-  $scope.Success = function() {
-    var alertPopup = $ionicPopup.alert({
+  $scope.closPop = function() {
+    console.log("Close called");
+    alertPopup.close();
+  };
+  $scope.errorCallback = function() {
+    alertPopup = $ionicPopup.alert({
       scope: $scope,
-      templateUrl: 'templates/chanagepassword.html',
+      templateUrl: 'templates/changePasswordWrong.html',
     });
-
+    $timeout(function() {
+      $scope.closPop();
+    }, 3000);
 
     alertPopup.then(function(res) {
       console.log('Thanks');
     });
+  };
+  $scope.Success = function() {
+    MyServices.changePassword($scope.form,
 
-    $scope.closPop = function() {
-      console.log("Close called");
-      alertPopup.close();
-    };
+      function(data) { // Success Function
+        data = data.data;
+        console.log(data);
+        if (data.value) {
+          alertPopup = $ionicPopup.alert({
+            scope: $scope,
+            templateUrl: 'templates/changePassword.html',
+          });
+          $timeout(function() {
+            $scope.closPop();
+          }, 3000);
+
+          alertPopup.then(function(res) {
+            console.log('Thanks');
+          });
+
+        } else {
+          $scope.errorCallback();
+        }
+      },
+      function(data) { // Error Function
+
+      });
+
+
+
+
+
+
   };
 });
