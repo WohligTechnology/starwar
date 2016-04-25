@@ -2,11 +2,11 @@ var Global = {};
 
 angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,MyServices) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices) {
   Global.expiryCalc = function() {
     $scope.expiryDays = MyServices.calcExpiry();
-    if($scope.expiryDays < 0) {
-    MyServices.expiredCallback();
+    if ($scope.expiryDays < 0) {
+      MyServices.expiredCallback();
     }
   };
   Global.expiryCalc();
@@ -17,7 +17,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     page: 1
   };
   MyServices.getAllMatch(form, function(data) {
-    $.jStorage.set("serverTime",data.serverTime);
+    $.jStorage.set("serverTime", data.serverTime);
     Global.expiryCalc();
     $scope.matches = data.data;
     _.each($scope.matches, function(n) {
@@ -68,7 +68,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   MyServices.getMatch(form, function(data) {
-    $.jStorage.set("serverTime",data.serverTime);
+    $.jStorage.set("serverTime", data.serverTime);
     Global.expiryCalc();
     $scope.match = data.data;
     $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
@@ -170,8 +170,10 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       if (data.data.value) {
         $scope.loginSuccess();
         console.log(data.data.data.expiry);
-        $.jStorage.set("expiry",data.data.data.expiry);
+        $.jStorage.set("expiry", data.data.data.expiry);
+
         $state.go("app.home");
+
 
       } else {
         if (data.data.error == "IncorrectCredentials") {
@@ -192,11 +194,14 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       templateUrl: 'templates/signup.html',
     });
 
-    $scope.form2 = {name:"Chintan Shah",contact:"9819222221"};
-    $scope.signUpTap  = function() {
-      MyServices.becomeMember($scope.form2,function(data) {
+    $scope.form2 = {
+      name: "Chintan Shah",
+      contact: "9819222221"
+    };
+    $scope.signUpTap = function() {
+      MyServices.becomeMember($scope.form2, function(data) {
         alertPopup.close();
-        if(data.data.value) {
+        if (data.data.value) {
           //become member success
           var alertPopup2 = $ionicPopup.alert({
             scope: $scope,
@@ -204,9 +209,8 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
           });
           $timeout(function() {
             alertPopup2.close();
-          },1500);
-        }
-        else {
+          }, 1500);
+        } else {
           //become member error
           alertPopup3 = $ionicPopup.alert({
             scope: $scope,
@@ -214,9 +218,9 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
           });
           $timeout(function() {
             alertPopup3.close();
-          },1500);
+          }, 1500);
         }
-      },function() {
+      }, function() {
 
       });
 
