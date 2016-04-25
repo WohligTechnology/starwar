@@ -2,7 +2,10 @@ var Global = {};
 
 angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices,$state) {
+  if(!$.jStorage.get("expiry")) {
+    $state.go("login");
+  }
   Global.expiryCalc = function() {
     $scope.expiryDays = MyServices.calcExpiry();
     if ($scope.expiryDays < 0) {
@@ -13,6 +16,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 })
 
 .controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
+
   var form = {
     pagenumber: "1",
     search:"",
@@ -140,6 +144,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 })
 
 .controller('LoginCtrl', function($scope, $ionicPopup, $timeout, MyServices, $state) {
+  $.jStorage.flush();
   var alertPopup = {};
   $scope.closPop = function() {
     console.log("Close called");
