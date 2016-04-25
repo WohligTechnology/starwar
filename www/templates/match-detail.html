@@ -1,6 +1,6 @@
 <ion-view >
   <ion-nav-title>
-      {{match.team1}} VS {{match.team2}}
+      {{match.team1.name}} VS {{match.team2.name}}
     </ion-nav-title>
   <ion-content class="home-bg">
     <!-- <div class="over-lay">
@@ -39,7 +39,7 @@
                   <h3 class="font-light color-base">(OVR: {{match.team1Overs}})</h3>
                 </div>
                 <div class="team pull-left">
-                  <h1 class="margin0 text-up text-color font-light">{{match.team1}}</h1>
+                  <h1 class="margin0 text-up text-color font-light">{{match.team1.name}}</h1>
                 </div>
               </div>
               <div class="col-33">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="team pull-right">
-                  <h1 class="margin0 text-up text-color font-light">{{match.team2}}</h1>
+                  <h1 class="margin0 text-up text-color font-light">{{match.team2.name}}</h1>
                 </div>
               </div>
             </div>

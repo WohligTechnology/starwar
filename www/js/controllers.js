@@ -14,12 +14,15 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
   var form = {
-    page: 1
+    pagenumber: "1",
+    search:"",
+    pagesize:"100"
   };
   MyServices.getAllMatch(form, function(data) {
     $.jStorage.set("serverTime", data.serverTime);
     Global.expiryCalc();
-    $scope.matches = data.data;
+    console.log(data);
+    $scope.matches = data.data.data;
     _.each($scope.matches, function(n) {
       n.timestamp = moment(n.startTime).valueOf();
     });
@@ -34,11 +37,13 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices) {
   var form = {
-    page: 1
+    pagenumber: "1",
+    search:"",
+    pagesize:"100"
   };
   MyServices.getAllNotification(form, function(data) {
     console.log(data);
-    $scope.notifications = data.data;
+    $scope.notifications = data.data.data;
   }, function(data) {
     console.log(data);
   });
@@ -50,7 +55,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   $scope.classa = 'actives';
   $scope.classb = '';
   var form = {
-    id: $stateParams.id
+    "_id": $stateParams.id
   };
 
   $scope.tabchange = function(tab, a) {
@@ -68,6 +73,14 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   MyServices.getMatch(form, function(data) {
+
+    data.data.session1 = _.filter(data.data.session,function(n) {
+      return n.inning == 1;
+    });
+    data.data.session2 = _.filter(data.data.session,function(n) {
+      return n.inning == 2;
+    });
+
     $.jStorage.set("serverTime", data.serverTime);
     Global.expiryCalc();
     $scope.match = data.data;
@@ -161,12 +174,12 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   $scope.form = {
-    contact: "9819222221",
-    password: "chintan123"
+    contact: "12345",
+    password: "wohlig"
   };
   $scope.loginTap = function(form) {
     MyServices.userLogin(form, function(data) {
-      console.log(data);
+      console.log(data.data.value);
       if (data.data.value) {
         $scope.loginSuccess();
         console.log(data.data.data.expiry);
@@ -176,9 +189,10 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 
       } else {
-        if (data.data.error == "IncorrectCredentials") {
+
+        if (data.data.data.message == "IncorrectCredentials") {
           $scope.errorCallback();
-        } else if (data.data.error == "DateExpired") {
+        } else if (data.data.data.message == "DateExpired") {
           MyServices.expiredCallback();
         }
       }
