@@ -106,7 +106,7 @@ a {
   color: $positive;
 }
 .assertive-color {
-  color:$assertive-colors;
+  color:$assertive;
 }
 .white-color {
   color: $white-color;
@@ -230,6 +230,12 @@ a {
   height: 36px;
   width: 36px;
   padding: 3px;
+  &.redNum {
+    background: $assertive;
+  }
+  &.greenNum {
+    background: $balanced;
+  }
   p {
     margin: 0;
     background: white;
@@ -238,6 +244,7 @@ a {
     width: 30px;
     padding: 6px 7px;
     font-size: 12px;
+    text-align: center;
   }
 }
 .day {

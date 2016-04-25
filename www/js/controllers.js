@@ -179,8 +179,8 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   $scope.form = {
-    contact: "12345",
-    password: "wohlig"
+    contact: "",
+    password: ""
   };
   $scope.loginTap = function(form) {
     MyServices.userLogin(form, function(data) {
@@ -214,8 +214,8 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     });
 
     $scope.form2 = {
-      name: "Chintan Shah",
-      contact: "9819222221"
+      name: "",
+      contact: ""
     };
     $scope.signUpTap = function() {
       MyServices.becomeMember($scope.form2, function(data) {
