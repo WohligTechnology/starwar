@@ -5,6 +5,7 @@ var foods = [];
 
 angular.module('starter.services', ['httpService'])
   .factory('MyServices', function($http, $filter, httpService, $ionicPopup, $state, $timeout) {
+
     return {
       userLogin: function(form, callback, errCallback) {
         $http.post(vigzserver + "user/login", form).then(callback, errCallback);
