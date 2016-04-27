@@ -2,37 +2,46 @@ var Global = {};
 
 angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices,$state) {
-  if(!$.jStorage.get("expiry")) {
-    $state.go("login");
-  }
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices, $state, $rootScope) {
+  $scope.$on('$ionicView.beforeEnter',
+    function() {
+      if (!$.jStorage.get("expiry")) {
+        $state.go("login");
+      }
+      Global.expiryCalc();
+    });
+
   Global.expiryCalc = function() {
     $scope.expiryDays = MyServices.calcExpiry();
     if ($scope.expiryDays < 0) {
       MyServices.expiredCallback();
     }
   };
-  Global.expiryCalc();
+
 })
 
 .controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
 
   var form = {
     pagenumber: "1",
-    search:"",
-    pagesize:"100"
+    search: "",
+    pagesize: "100"
   };
-  MyServices.getAllMatch(form, function(data) {
-    $.jStorage.set("serverTime", data.serverTime);
-    Global.expiryCalc();
-    console.log(data);
-    $scope.matches = data.data.data;
-    _.each($scope.matches, function(n) {
-      n.timestamp = moment(n.startTime).valueOf();
+
+  $scope.$on('$ionicView.beforeEnter',
+    function() {
+      MyServices.getAllMatch(form, function(data) {
+        $.jStorage.set("serverTime", data.serverTime);
+        Global.expiryCalc();
+        $scope.matches = data.data.data;
+        _.each($scope.matches, function(n) {
+          n.timestamp = moment(n.startTime).valueOf();
+        });
+      }, function(data) {
+
+      });
     });
-  }, function(data) {
-    console.log(data);
-  });
+
 })
 
 .controller('ProfileCtrl', function($scope, $ionicModal, $timeout) {})
@@ -40,17 +49,21 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 .controller('ContactCtrl', function($scope, $ionicModal, $timeout) {})
 
 .controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices) {
+
+
   var form = {
     pagenumber: "1",
-    search:"",
-    pagesize:"100"
+    search: "",
+    pagesize: "100"
   };
-  MyServices.getAllNotification(form, function(data) {
-    console.log(data);
-    $scope.notifications = data.data.data;
-  }, function(data) {
-    console.log(data);
-  });
+  $scope.$on('$ionicView.beforeEnter',
+    function() {
+      MyServices.getAllNotification(form, function(data) {
+        $scope.notifications = data.data.data;
+      }, function(data) {
+      });
+
+    });
 
 })
 
@@ -63,7 +76,6 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   $scope.tabchange = function(tab, a) {
-    //        console.log(tab);
     $scope.tab = tab;
     if (a == 1) {
       // $ionicScrollDelegate.scrollTop();
@@ -76,78 +88,89 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     }
   };
 
-  MyServices.getMatch(form, function(data) {
 
-    data.data.session1 = _.filter(data.data.session,function(n) {
-      return n.inning == 1;
+  $scope.$on('$ionicView.beforeEnter',
+    function() {
+      MyServices.getMatch(form, function(data) {
+
+        data.data.session1 = _.filter(data.data.session, function(n) {
+          return n.inning == 1;
+        });
+        data.data.session2 = _.filter(data.data.session, function(n) {
+          return n.inning == 2;
+        });
+
+        $.jStorage.set("serverTime", data.serverTime);
+        Global.expiryCalc();
+        $scope.match = data.data;
+        $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
+
+        if ($scope.match.firstBat == 1) {
+          $scope.match.inning1Overs = $scope.match.team1Overs;
+          $scope.match.inning2Overs = $scope.match.team2Overs;
+        } else if ($scope.match.firstBat == 2) {
+          $scope.match.inning1Overs = $scope.match.team2Overs;
+          $scope.match.inning2Overs = $scope.match.team1Overs;
+        }
+
+        if ($scope.match.isSecondInning) {
+
+          $scope.match.inning1Overs = 99999;
+
+          $scope.tabchange('second', 2);
+          if ($scope.match.bat == 1) {
+            $scope.match.playedBalls = getBalls($scope.match.team1Overs);
+            $scope.match.currentRuns = $scope.match.team1Runs;
+            $scope.match.targetRuns = $scope.match.team2Runs + 1;
+          } else if ($scope.match.bat == 2) {
+            $scope.match.playedBalls = getBalls($scope.match.team2Overs);
+            $scope.match.currentRuns = $scope.match.team2Runs;
+            $scope.match.targetRuns = $scope.match.team1Runs + 1;
+          }
+          $scope.match.totalBalls = getBalls($scope.match.newOvers);
+          $scope.match.remainingBalls = $scope.match.totalBalls - $scope.match.playedBalls;
+
+          $scope.match.remainingRuns = $scope.match.targetRuns - $scope.match.currentRuns;
+
+        }
+
+
+
+        if ($scope.match.favorite == 1) {
+          $scope.match.matchRate1 = $scope.match.rate1;
+          $scope.match.matchRate2 = $scope.match.rate2;
+
+          $scope.match.matchRate3 = rateCalc($scope.match.matchRate2);
+          $scope.match.matchRate4 = rateCalc($scope.match.matchRate1);
+        }
+        if ($scope.match.favorite == 2) {
+          $scope.match.matchRate3 = $scope.match.rate1;
+          $scope.match.matchRate4 = $scope.match.rate2;
+
+          $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
+          $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
+        }
+
+      }, function(data) {
+
+      });
+
+
     });
-    data.data.session2 = _.filter(data.data.session,function(n) {
-      return n.inning == 2;
-    });
-
-    $.jStorage.set("serverTime", data.serverTime);
-    Global.expiryCalc();
-    $scope.match = data.data;
-    $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
-
-    if ($scope.match.firstBat == 1) {
-      $scope.match.inning1Overs = $scope.match.team1Overs;
-      $scope.match.inning2Overs = $scope.match.team2Overs;
-    } else if ($scope.match.firstBat == 2) {
-      $scope.match.inning1Overs = $scope.match.team2Overs;
-      $scope.match.inning2Overs = $scope.match.team1Overs;
-    }
-
-    if ($scope.match.isSecondInning) {
-
-      $scope.match.inning1Overs = 99999;
-
-      $scope.tabchange('second', 2);
-      if ($scope.match.bat == 1) {
-        $scope.match.playedBalls = getBalls($scope.match.team1Overs);
-        $scope.match.currentRuns = $scope.match.team1Runs;
-        $scope.match.targetRuns = $scope.match.team2Runs + 1;
-      } else if ($scope.match.bat == 2) {
-        $scope.match.playedBalls = getBalls($scope.match.team2Overs);
-        $scope.match.currentRuns = $scope.match.team2Runs;
-        $scope.match.targetRuns = $scope.match.team1Runs + 1;
-      }
-      $scope.match.totalBalls = getBalls($scope.match.newOvers);
-      $scope.match.remainingBalls = $scope.match.totalBalls - $scope.match.playedBalls;
-
-      $scope.match.remainingRuns = $scope.match.targetRuns - $scope.match.currentRuns;
-
-    }
-
-
-
-    if ($scope.match.favorite == 1) {
-      $scope.match.matchRate1 = $scope.match.rate1;
-      $scope.match.matchRate2 = $scope.match.rate2;
-
-      $scope.match.matchRate3 = rateCalc($scope.match.matchRate2);
-      $scope.match.matchRate4 = rateCalc($scope.match.matchRate1);
-    }
-    if ($scope.match.favorite == 2) {
-      $scope.match.matchRate3 = $scope.match.rate1;
-      $scope.match.matchRate4 = $scope.match.rate2;
-
-      $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
-      $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
-    }
-    console.log(data.data);
-  }, function(data) {
-    console.log(data);
-  });
-
 
 })
 
-.controller('LoginCtrl', function($scope, $ionicPopup, $timeout, MyServices, $state) {
-  $.jStorage.flush();
+.controller('LoginCtrl', function($scope, $ionicPopup, $timeout, MyServices, $state, $rootScope) {
+
+  $scope.$on('$ionicView.beforeEnter',
+    function() {
+
+      $.jStorage.flush();
+    }
+  );
   var alertPopup = {};
   $scope.closPop = function() {
-    console.log("Close called");
+
     alertPopup.close();
   };
   $scope.loginSuccess = function() {
@@ -159,9 +182,6 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.closPop();
     }, 1500);
 
-    alertPopup.then(function(res) {
-      console.log('Thanks');
-    });
   };
 
   $scope.errorCallback = function() {
@@ -173,9 +193,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.closPop();
     }, 3000);
 
-    alertPopup.then(function(res) {
-      console.log('Thanks');
-    });
+
   };
 
   $scope.form = {
@@ -184,13 +202,12 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
   $scope.loginTap = function(form) {
     MyServices.userLogin(form, function(data) {
-      console.log(data.data.value);
-      if (data.data.value) {
-        $scope.loginSuccess();
-        console.log(data.data.data.expiry);
-        $.jStorage.set("expiry", data.data.data.expiry);
 
+      if (data.data.value) {
+        $.jStorage.set("expiry", data.data.data.expiry);
+        $scope.loginSuccess();
         $state.go("app.home");
+        Global.expiryCalc();
 
 
       } else {
@@ -203,8 +220,6 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       }
 
     }, function(data) {
-      console.log(data);
-
     });
   };
   $scope.showSignup = function() {
@@ -258,7 +273,6 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   var alertPopup = {};
 
   $scope.closPop = function() {
-    console.log("Close called");
     alertPopup.close();
   };
   $scope.errorCallback = function() {
@@ -270,16 +284,12 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.closPop();
     }, 3000);
 
-    alertPopup.then(function(res) {
-      console.log('Thanks');
-    });
   };
   $scope.Success = function() {
     MyServices.changePassword($scope.form,
 
       function(data) { // Success Function
         data = data.data;
-        console.log(data);
         if (data.value) {
           alertPopup = $ionicPopup.alert({
             scope: $scope,
@@ -289,9 +299,6 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
             $scope.closPop();
           }, 3000);
 
-          alertPopup.then(function(res) {
-            console.log('Thanks');
-          });
 
         } else {
           $scope.errorCallback();

@@ -1,4 +1,4 @@
-var vigzserver = "http://192.168.1.128:1337/";
+var vigzserver = "http://192.168.1.107:1337/";
 var adminimage = vigzserver + "upload/readFile?file=";
 
 var foods = [];
@@ -31,7 +31,6 @@ angular.module('starter.services', ['httpService'])
       expiredCallback: function() {
         var alertPopup = {};
         var closPop = function() {
-          console.log("Close called");
           alertPopup.close();
         };
         $state.go("login");
@@ -43,9 +42,6 @@ angular.module('starter.services', ['httpService'])
           closPop();
         }, 1500);
 
-        alertPopup.then(function(res) {
-          console.log('Thanks');
-        });
 
 
 

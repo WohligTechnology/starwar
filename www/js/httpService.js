@@ -67,7 +67,6 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
                     var md5 = $.md5(JSON.stringify(data2));
                     if (sqlResponse && md5 != sqlResponse.md5) {
                         //UPDATE
-                        console.log("UPDATE");
                         DB.update("httpCall", {
                             "md5": md5,
                             "url": url,
@@ -84,7 +83,6 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
                         }
                     } else if (!sqlResponse) {
                         //INSERT
-                        console.log("INSERT");
                         DB.insert("httpCall", {
                             "md5": md5,
                             "url": url,
@@ -97,7 +95,6 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
                             callback(data2, status);
                         }
                     } else if (sqlResponse && md5 == sqlResponse.md5) {
-                        console.log("No Change");
                         DB.update("httpCall", {
                             "use": sqlResponse.use + 1
                         }, {
