@@ -118,28 +118,29 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
             req = null;
         }
         var reqString = JSON.stringify(req);
-
-        DB.select("httpCall", {
-            "url": {
-                "value": url,
-                "union": 'AND'
-            },
-            "request": {
-                "value": reqString
-            }
-        }).then(function(results) {
-            if (results.rows.length > 0) {
-                sqlResponse = results.rows.item(0);
-                sqlResponse.jsonResponse = JSON.parse(sqlResponse.response);
-                if (callback) {
-                    callback(sqlResponse.jsonResponse);
-                }
-                sqlResponse.jsonResponse = sqlResponse.response;
-                makeHttpCall(sqlResponse);
-            } else {
-                makeHttpCall();
-            }
-        });
+  // makeHttpCall();
+        // DB.select("httpCall", {
+        //     "url": {
+        //         "value": url,
+        //         "union": 'AND'
+        //     },
+        //     "request": {
+        //         "value": reqString
+        //     }
+        // }).then(function(results) {
+        //     if (results.rows.length > 0) {
+        //         sqlResponse = results.rows.item(0);
+        //         sqlResponse.jsonResponse = JSON.parse(sqlResponse.response);
+        //         if (callback) {
+        //             callback(sqlResponse.jsonResponse);
+        //         }
+        //         sqlResponse.jsonResponse = sqlResponse.response;
+        //         makeHttpCall(sqlResponse);
+        //     } else {
+        //         makeHttpCall();
+        //     }
+        // });
+         makeHttpCall();
     }
     this.post = function(url, data, callback, errorCallback) {
         startCall(url, data, callback, errorCallback, "POST");

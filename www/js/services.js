@@ -44,10 +44,6 @@ angular.module('starter.services', ['httpService'])
         $timeout(function() {
           closPop();
         }, 1500);
-
-
-
-
       }
     };
   });

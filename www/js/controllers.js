@@ -13,8 +13,14 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
   Global.expiryCalc = function() {
     $scope.expiryDays = MyServices.calcExpiry();
-    if ($scope.expiryDays < 0) {
+    console.log($.jStorage.get('newuserid'));
+    console.log($.jStorage.get('userid'));
+    if($.jStorage.get('newuserid') && ( $.jStorage.get('userid') != $.jStorage.get('newuserid'))) {
+        MyServices.expiredCallback();
+    }
+    if ($scope.expiryDays < 0 ) {
       MyServices.expiredCallback();
+
     }
   };
 
@@ -30,8 +36,11 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
   $scope.$on('$ionicView.beforeEnter',
     function() {
+      console.log("Call get all match");
       MyServices.getAllMatch(form, function(data) {
+        console.log(data);
         $.jStorage.set("serverTime", data.serverTime);
+        $.jStorage.set("newuserid", data.userid);
         Global.expiryCalc();
         $scope.matches = data.data.data;
         _.each($scope.matches, function(n) {
@@ -102,6 +111,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     });
 
     $.jStorage.set("serverTime", data.serverTime);
+    $.jStorage.set("newuserid", data.userid);
     Global.expiryCalc();
     $scope.match = data.data;
     $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
@@ -214,6 +224,8 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
       if (data.data.value) {
         $.jStorage.set("expiry", data.data.data.expiry);
+        $.jStorage.set("userid", data.data.data.userid);
+        $.jStorage.set("newuserid", data.data.data.userid);
         $scope.loginSuccess();
         $state.go("app.home");
         Global.expiryCalc();
