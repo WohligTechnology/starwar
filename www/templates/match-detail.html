@@ -63,7 +63,7 @@
             </div>
           </div>
           <div class="card-footer text-center" ng-if="match.isSecondInning">
-            <h4 class="font-light text-color">Zim need <span class="f20 postive-color">{{match.remainingRuns}} runs</span> in <span class="f20 postive-color">{{match.remainingBalls}} balls</span> to win</h4>
+            <h4 class="font-light text-color"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span> need <span class="f20 postive-color">{{match.remainingRuns}} runs</span> in <span class="f20 postive-color">{{match.remainingBalls}} balls</span> to win</h4>
 
           </div>
           <div class="card-footer text-center" ng-if="match.comment && match.comment!=''">
@@ -91,7 +91,7 @@
         <div class="row team-rt1">
           <div class="col-50">
             <div class="team">
-              <h4 class="text-up f20 font-light">ind</h4>
+              <h4 class="text-up f20 font-light">{{match.team1.name}}</h4>
             </div>
           </div>
           <div class="col-25 text-center">
@@ -104,7 +104,7 @@
         <div class="row team-rt2">
           <div class="col-50">
             <div class="team">
-              <h4 class="text-up f20 font-light">zim</h4>
+              <h4 class="text-up f20 font-light">{{match.team2.name}}</h4>
             </div>
           </div>
           <div class="col-25 text-center">

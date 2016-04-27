@@ -147,6 +147,7 @@ httpService.service('httpService', function($http, $webSql, $ionicPopup) {
     this.get = function(url, data, callback, errorCallback) {
         startCall(url, data, callback, errorCallback, "GET");
     };
+
     this.clearMemory = function() {
         DB.executeQuery("SELECT COUNT(*) as `count` FROM `httpCall`").then(function(data) {
             var diff = 0;

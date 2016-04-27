@@ -107,7 +107,6 @@ function rateCalc(rate) {
 }
 
 function getBalls(data) {
-  console.log(data);
   var overs = parseInt(data);
   var balls = (data - overs) * 10;
   return Math.round(overs * 6 + balls);

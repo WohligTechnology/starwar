@@ -20,7 +20,10 @@ angular.module('starter.services', ['httpService'])
         httpService.post(vigzserver + "match/findLimited", form, callback, errCallback);
       },
       getMatch: function(form, callback, errCallback) {
-        httpService.post(vigzserver + "match/findOne", form, callback, errCallback);
+        // httpService.post(vigzserver + "match/findOne", form, callback, errCallback);
+        io.socket.get(vigzserver + "match/findOne", form, function(resData) {
+          callback(resData);
+        });
       },
       changePassword: function(form, callback, errCallback) {
         $http.post(vigzserver + "user/changePassword", form).then(callback, errCallback);

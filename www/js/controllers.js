@@ -60,8 +60,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     function() {
       MyServices.getAllNotification(form, function(data) {
         $scope.notifications = data.data.data;
-      }, function(data) {
-      });
+      }, function(data) {});
 
     });
 
@@ -75,6 +74,12 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     "_id": $stateParams.id
   };
 
+  io.socket.on('message', function(data) {
+    console.log(data);
+    SocketFunction(data,true);
+
+  });
+
   $scope.tabchange = function(tab, a) {
     $scope.tab = tab;
     if (a == 1) {
@@ -87,71 +92,75 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.classb = "actives";
     }
   };
+  var SocketFunction = function(data,isSocket) {
 
+    data.data.session1 = _.filter(data.data.session, function(n) {
+      return n.inning == 1;
+    });
+    data.data.session2 = _.filter(data.data.session, function(n) {
+      return n.inning == 2;
+    });
+
+    $.jStorage.set("serverTime", data.serverTime);
+    Global.expiryCalc();
+    $scope.match = data.data;
+    $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
+
+    if ($scope.match.firstBat == 1) {
+      $scope.match.inning1Overs = $scope.match.team1Overs;
+      $scope.match.inning2Overs = $scope.match.team2Overs;
+    } else if ($scope.match.firstBat == 2) {
+      $scope.match.inning1Overs = $scope.match.team2Overs;
+      $scope.match.inning2Overs = $scope.match.team1Overs;
+    }
+
+    if ($scope.match.isSecondInning) {
+
+      $scope.match.inning1Overs = 99999;
+
+      $scope.tabchange('second', 2);
+      if ($scope.match.bat == 1) {
+        $scope.match.playedBalls = getBalls($scope.match.team1Overs);
+        $scope.match.currentRuns = $scope.match.team1Runs;
+        $scope.match.targetRuns = $scope.match.team2Runs + 1;
+      } else if ($scope.match.bat == 2) {
+        $scope.match.playedBalls = getBalls($scope.match.team2Overs);
+        $scope.match.currentRuns = $scope.match.team2Runs;
+        $scope.match.targetRuns = $scope.match.team1Runs + 1;
+      }
+      $scope.match.totalBalls = getBalls($scope.match.newOvers);
+      $scope.match.remainingBalls = $scope.match.totalBalls - $scope.match.playedBalls;
+
+      $scope.match.remainingRuns = $scope.match.targetRuns - $scope.match.currentRuns;
+
+    }
+
+
+
+    if ($scope.match.favorite == 1) {
+      $scope.match.matchRate1 = $scope.match.rate1;
+      $scope.match.matchRate2 = $scope.match.rate2;
+
+      $scope.match.matchRate3 = rateCalc($scope.match.matchRate2);
+      $scope.match.matchRate4 = rateCalc($scope.match.matchRate1);
+    }
+    if ($scope.match.favorite == 2) {
+      $scope.match.matchRate3 = $scope.match.rate1;
+      $scope.match.matchRate4 = $scope.match.rate2;
+
+      $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
+      $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
+    }
+    if(isSocket)
+    {
+      $scope.$apply();
+    }
+
+  };
 
   $scope.$on('$ionicView.beforeEnter',
     function() {
-      MyServices.getMatch(form, function(data) {
-
-        data.data.session1 = _.filter(data.data.session, function(n) {
-          return n.inning == 1;
-        });
-        data.data.session2 = _.filter(data.data.session, function(n) {
-          return n.inning == 2;
-        });
-
-        $.jStorage.set("serverTime", data.serverTime);
-        Global.expiryCalc();
-        $scope.match = data.data;
-        $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
-
-        if ($scope.match.firstBat == 1) {
-          $scope.match.inning1Overs = $scope.match.team1Overs;
-          $scope.match.inning2Overs = $scope.match.team2Overs;
-        } else if ($scope.match.firstBat == 2) {
-          $scope.match.inning1Overs = $scope.match.team2Overs;
-          $scope.match.inning2Overs = $scope.match.team1Overs;
-        }
-
-        if ($scope.match.isSecondInning) {
-
-          $scope.match.inning1Overs = 99999;
-
-          $scope.tabchange('second', 2);
-          if ($scope.match.bat == 1) {
-            $scope.match.playedBalls = getBalls($scope.match.team1Overs);
-            $scope.match.currentRuns = $scope.match.team1Runs;
-            $scope.match.targetRuns = $scope.match.team2Runs + 1;
-          } else if ($scope.match.bat == 2) {
-            $scope.match.playedBalls = getBalls($scope.match.team2Overs);
-            $scope.match.currentRuns = $scope.match.team2Runs;
-            $scope.match.targetRuns = $scope.match.team1Runs + 1;
-          }
-          $scope.match.totalBalls = getBalls($scope.match.newOvers);
-          $scope.match.remainingBalls = $scope.match.totalBalls - $scope.match.playedBalls;
-
-          $scope.match.remainingRuns = $scope.match.targetRuns - $scope.match.currentRuns;
-
-        }
-
-
-
-        if ($scope.match.favorite == 1) {
-          $scope.match.matchRate1 = $scope.match.rate1;
-          $scope.match.matchRate2 = $scope.match.rate2;
-
-          $scope.match.matchRate3 = rateCalc($scope.match.matchRate2);
-          $scope.match.matchRate4 = rateCalc($scope.match.matchRate1);
-        }
-        if ($scope.match.favorite == 2) {
-          $scope.match.matchRate3 = $scope.match.rate1;
-          $scope.match.matchRate4 = $scope.match.rate2;
-
-          $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
-          $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
-        }
-
-      }, function(data) {
+      MyServices.getMatch(form, SocketFunction , function(data) {
 
       });
 
@@ -219,8 +228,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
         }
       }
 
-    }, function(data) {
-    });
+    }, function(data) {});
   };
   $scope.showSignup = function() {
     var alertPopup = $ionicPopup.alert({
