@@ -3,6 +3,18 @@ var Global = {};
 angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices, $state, $rootScope) {
+  Global.expiryCalc = function() {
+    $scope.expiryDays = MyServices.calcExpiry();
+    if ($.jStorage.get('newuserid') && ($.jStorage.get('userid') != $.jStorage.get('newuserid'))) {
+      MyServices.expiredCallback();
+    }
+    if ($scope.expiryDays < 0) {
+      MyServices.expiredCallback();
+
+    }
+  };
+
+
   $scope.$on('$ionicView.beforeEnter',
     function() {
       if (!$.jStorage.get("expiry")) {
@@ -11,18 +23,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       Global.expiryCalc();
     });
 
-  Global.expiryCalc = function() {
-    $scope.expiryDays = MyServices.calcExpiry();
-    console.log($.jStorage.get('newuserid'));
-    console.log($.jStorage.get('userid'));
-    if($.jStorage.get('newuserid') && ( $.jStorage.get('userid') != $.jStorage.get('newuserid'))) {
-        MyServices.expiredCallback();
-    }
-    if ($scope.expiryDays < 0 ) {
-      MyServices.expiredCallback();
 
-    }
-  };
 
 })
 
@@ -36,12 +37,13 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
   $scope.$on('$ionicView.beforeEnter',
     function() {
-      console.log("Call get all match");
       MyServices.getAllMatch(form, function(data) {
-        console.log(data);
         $.jStorage.set("serverTime", data.serverTime);
         $.jStorage.set("newuserid", data.userid);
-        Global.expiryCalc();
+        $timeout(function() {
+          Global.expiryCalc();
+        }, 100);
+
         $scope.matches = data.data.data;
         _.each($scope.matches, function(n) {
           n.timestamp = moment(n.startTime).valueOf();
@@ -84,9 +86,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   io.socket.on('message', function(data) {
-    console.log(data);
-    SocketFunction(data,true);
-
+    SocketFunction(data, true);
   });
 
   $scope.tabchange = function(tab, a) {
@@ -101,8 +101,8 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.classb = "actives";
     }
   };
-  var SocketFunction = function(data,isSocket) {
-
+  var SocketFunction = function(data, isSocket) {
+    console.log(data);
     data.data.session1 = _.filter(data.data.session, function(n) {
       return n.inning == 1;
     });
@@ -161,8 +161,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
       $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
     }
-    if(isSocket)
-    {
+    if (isSocket) {
       $scope.$apply();
     }
 
@@ -170,26 +169,21 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
   $scope.$on('$ionicView.beforeEnter',
     function() {
-      MyServices.getMatch(form, SocketFunction , function(data) {
-
-      });
-
-
+      MyServices.getMatch(form, SocketFunction, function(data) {});
     });
 
 })
 
 .controller('LoginCtrl', function($scope, $ionicPopup, $timeout, MyServices, $state, $rootScope) {
 
+
   $scope.$on('$ionicView.beforeEnter',
     function() {
-
       $.jStorage.flush();
     }
   );
   var alertPopup = {};
   $scope.closPop = function() {
-
     alertPopup.close();
   };
   $scope.loginSuccess = function() {
@@ -228,7 +222,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
         $.jStorage.set("newuserid", data.data.data.userid);
         $scope.loginSuccess();
         $state.go("app.home");
-        Global.expiryCalc();
+        // Global.expiryCalc();
 
 
       } else {

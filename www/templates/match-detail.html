@@ -1,5 +1,5 @@
 <ion-view >
-  <ion-nav-title>
+  <ion-nav-title  >
       {{match.team1.name}} VS {{match.team2.name}}
     </ion-nav-title>
   <ion-content class="home-bg">
@@ -7,7 +7,7 @@
       <h1 class="text-up">wicket</h1>
     </div> -->
 
-    <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}">
+    <div class="card" ng-if="match._id" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}">
       <div class="item item-text-wrap">
         <div class="card-innner">
           <div class="card-head">
@@ -74,7 +74,7 @@
         </div>
       </div>
     </div>
-    <div class="card rate">
+    <div class="card rate" ng-if="match._id">
       <!-- <div class="item item-divider font-light">
         RATE
       </div> -->
@@ -117,7 +117,7 @@
       </div>
 
     </div>
-    <div class="card rate">
+    <div class="card rate" ng-if="match._id" ng-show="match.session1.length>0 || match.session2.length>0" >
       <div class="item item-divider font-light">
         SESS
       </div>

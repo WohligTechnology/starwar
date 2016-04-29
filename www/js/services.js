@@ -1,4 +1,4 @@
-var vigzserver = "http://192.168.1.107:1337/";
+var vigzserver = "http://localhost:1337/";
 var adminimage = vigzserver + "upload/readFile?file=";
 
 var foods = [];
