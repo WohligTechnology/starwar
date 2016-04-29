@@ -222,7 +222,12 @@ a {
 .ser span {
   color: #333333;
   font-weight: 400;
-  font-size: 14px; }
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;
+  overflow: hidden;
+  display: block; }
 
 .status span, .status2 span, .status3 span {
   color: #fff;
