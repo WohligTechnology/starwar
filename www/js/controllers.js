@@ -111,7 +111,6 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     });
 
     $.jStorage.set("serverTime", data.serverTime);
-    $.jStorage.set("newuserid", data.userid);
     Global.expiryCalc();
     $scope.match = data.data;
     $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
