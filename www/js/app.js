@@ -102,7 +102,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
 
 function rateCalc(rate) {
-  var realRate = rate + 1;
+  var realRate = parseFloat(rate) + 1;
   return (realRate / (realRate - 1)) - 1;
 }
 

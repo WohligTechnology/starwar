@@ -102,7 +102,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     }
   };
   var SocketFunction = function(data, isSocket) {
-    console.log(data);
+
     data.data.session1 = _.filter(data.data.session, function(n) {
       return n.inning == 1;
     });
@@ -117,11 +117,18 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
     if ($scope.match.firstBat == 1) {
       $scope.match.inning1Overs = $scope.match.team1Overs;
+      $scope.match.inning1Runs = $scope.match.team1Runs;
       $scope.match.inning2Overs = $scope.match.team2Overs;
+      $scope.match.inning2Runs = $scope.match.team2Runs;
+
     } else if ($scope.match.firstBat == 2) {
       $scope.match.inning1Overs = $scope.match.team2Overs;
+      $scope.match.inning1Runs = $scope.match.team2Runs;
       $scope.match.inning2Overs = $scope.match.team1Overs;
+      $scope.match.inning2Runs = $scope.match.team1Runs;
     }
+    $scope.match.inning1Balls = getBalls($scope.match.inning1Overs);
+    $scope.match.inning2Balls = getBalls($scope.match.inning2Overs);
 
     if ($scope.match.isSecondInning) {
 
@@ -163,7 +170,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     if (isSocket) {
       $scope.$apply();
     }
-
+    console.log($scope.match);
   };
 
   $scope.$on('$ionicView.beforeEnter',
