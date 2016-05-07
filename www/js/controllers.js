@@ -167,9 +167,9 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
       $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
     }
-    if (isSocket) {
-      $scope.$apply();
-    }
+
+    $scope.$apply();
+
     console.log($scope.match);
   };
 
