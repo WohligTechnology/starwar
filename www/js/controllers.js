@@ -48,11 +48,15 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
         $timeout(function() {
           Global.expiryCalc();
         }, 100);
+        if (data.data) {
+          $scope.matches = data.data.data;
+          _.each($scope.matches, function(n) {
+            n.timestamp = moment(n.startTime).valueOf();
+          });
+        } else {
+          $state.go("login");
+        }
 
-        $scope.matches = data.data.data;
-        _.each($scope.matches, function(n) {
-          n.timestamp = moment(n.startTime).valueOf();
-        });
       }, function(data) {
 
       });
@@ -117,78 +121,79 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     }
   };
   var SocketFunction = function(data, isSocket) {
+    if (!data.data) {
+      $state.go("login");
+    } else {
+      data.data.session1 = _.filter(data.data.session, function(n) {
+        return n.inning == 1;
+      });
+      data.data.session2 = _.filter(data.data.session, function(n) {
+        return n.inning == 2;
+      });
 
-    data.data.session1 = _.filter(data.data.session, function(n) {
-      return n.inning == 1;
-    });
-    data.data.session2 = _.filter(data.data.session, function(n) {
-      return n.inning == 2;
-    });
+      $.jStorage.set("serverTime", data.serverTime);
+      Global.expiryCalc();
+      $scope.match = data.data;
+      $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
 
-    $.jStorage.set("serverTime", data.serverTime);
-    Global.expiryCalc();
-    $scope.match = data.data;
-    $scope.match.isSecondInning = $scope.match.bat != $scope.match.firstBat;
-
-    if ($scope.match.firstBat == 1) {
-      $scope.match.inning1Overs = $scope.match.team1Overs;
-      $scope.match.inning1Runs = $scope.match.team1Runs;
-      $scope.match.inning1Wicket = $scope.match.team1Wicket;
-      $scope.match.inning2Overs = $scope.match.team2Overs;
-      $scope.match.inning2Runs = $scope.match.team2Runs;
-      $scope.match.inning2Wicket = $scope.match.team2Wicket;
-    } else if ($scope.match.firstBat == 2) {
-      $scope.match.inning1Overs = $scope.match.team2Overs;
-      $scope.match.inning1Runs = $scope.match.team2Runs;
-      $scope.match.inning1Wicket = $scope.match.team2Wicket;
-      $scope.match.inning2Overs = $scope.match.team1Overs;
-      $scope.match.inning2Runs = $scope.match.team1Runs;
-      $scope.match.inning2Wicket = $scope.match.team1Wicket;
-    }
-    $scope.match.inning1Balls = getBalls($scope.match.inning1Overs);
-    $scope.match.inning2Balls = getBalls($scope.match.inning2Overs);
-
-    if ($scope.match.isSecondInning) {
-
-      $scope.match.inning1Overs = 99999;
-
-      $scope.tabchange('second', 2);
-      if ($scope.match.bat == 1) {
-        $scope.match.playedBalls = getBalls($scope.match.team1Overs);
-        $scope.match.currentRuns = $scope.match.team1Runs;
-        $scope.match.targetRuns = $scope.match.team2Runs + 1;
-      } else if ($scope.match.bat == 2) {
-        $scope.match.playedBalls = getBalls($scope.match.team2Overs);
-        $scope.match.currentRuns = $scope.match.team2Runs;
-        $scope.match.targetRuns = $scope.match.team1Runs + 1;
+      if ($scope.match.firstBat == 1) {
+        $scope.match.inning1Overs = $scope.match.team1Overs;
+        $scope.match.inning1Runs = $scope.match.team1Runs;
+        $scope.match.inning1Wicket = $scope.match.team1Wicket;
+        $scope.match.inning2Overs = $scope.match.team2Overs;
+        $scope.match.inning2Runs = $scope.match.team2Runs;
+        $scope.match.inning2Wicket = $scope.match.team2Wicket;
+      } else if ($scope.match.firstBat == 2) {
+        $scope.match.inning1Overs = $scope.match.team2Overs;
+        $scope.match.inning1Runs = $scope.match.team2Runs;
+        $scope.match.inning1Wicket = $scope.match.team2Wicket;
+        $scope.match.inning2Overs = $scope.match.team1Overs;
+        $scope.match.inning2Runs = $scope.match.team1Runs;
+        $scope.match.inning2Wicket = $scope.match.team1Wicket;
       }
-      $scope.match.totalBalls = getBalls($scope.match.newOvers);
-      $scope.match.remainingBalls = $scope.match.totalBalls - $scope.match.playedBalls;
+      $scope.match.inning1Balls = getBalls($scope.match.inning1Overs);
+      $scope.match.inning2Balls = getBalls($scope.match.inning2Overs);
 
-      $scope.match.remainingRuns = $scope.match.targetRuns - $scope.match.currentRuns;
+      if ($scope.match.isSecondInning) {
 
+        $scope.match.inning1Overs = 99999;
+
+        $scope.tabchange('second', 2);
+        if ($scope.match.bat == 1) {
+          $scope.match.playedBalls = getBalls($scope.match.team1Overs);
+          $scope.match.currentRuns = $scope.match.team1Runs;
+          $scope.match.targetRuns = $scope.match.team2Runs + 1;
+        } else if ($scope.match.bat == 2) {
+          $scope.match.playedBalls = getBalls($scope.match.team2Overs);
+          $scope.match.currentRuns = $scope.match.team2Runs;
+          $scope.match.targetRuns = $scope.match.team1Runs + 1;
+        }
+        $scope.match.totalBalls = getBalls($scope.match.newOvers);
+        $scope.match.remainingBalls = $scope.match.totalBalls - $scope.match.playedBalls;
+
+        $scope.match.remainingRuns = $scope.match.targetRuns - $scope.match.currentRuns;
+
+      }
+
+
+
+      if ($scope.match.favorite == 1) {
+        $scope.match.matchRate1 = $scope.match.rate1;
+        $scope.match.matchRate2 = $scope.match.rate2;
+
+        $scope.match.matchRate3 = rateCalc($scope.match.matchRate2);
+        $scope.match.matchRate4 = rateCalc($scope.match.matchRate1);
+      }
+      if ($scope.match.favorite == 2) {
+        $scope.match.matchRate3 = $scope.match.rate1;
+        $scope.match.matchRate4 = $scope.match.rate2;
+
+        $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
+        $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
+      }
+      $scope.$apply();
     }
 
-
-
-    if ($scope.match.favorite == 1) {
-      $scope.match.matchRate1 = $scope.match.rate1;
-      $scope.match.matchRate2 = $scope.match.rate2;
-
-      $scope.match.matchRate3 = rateCalc($scope.match.matchRate2);
-      $scope.match.matchRate4 = rateCalc($scope.match.matchRate1);
-    }
-    if ($scope.match.favorite == 2) {
-      $scope.match.matchRate3 = $scope.match.rate1;
-      $scope.match.matchRate4 = $scope.match.rate2;
-
-      $scope.match.matchRate1 = rateCalc($scope.match.matchRate4);
-      $scope.match.matchRate2 = rateCalc($scope.match.matchRate3);
-    }
-
-    $scope.$apply();
-
-    console.log($scope.match);
   };
 
   $scope.$on('$ionicView.beforeEnter',
