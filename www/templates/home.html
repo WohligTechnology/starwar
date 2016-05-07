@@ -1,6 +1,18 @@
 <ion-view view-title="STALWART">
   <ion-content class="home-bg">
-    <div class="" collection-repeat="match in matches" item-height="110px" >
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
+    <div ng-hide="matches">
+      <div class="loading">
+        <ion-spinner icon="crescent"></ion-spinner><br/>
+        <p>Loading</p>
+      </div>
+    </div>
+
+    <div class="" ng-show="matches" collection-repeat="match in matches" item-height="110px">
+
       <div class="card" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}" ui-sref="app.match-detail({id:match._id})" ion-ripple>
         <div class="item item-text-wrap">
           <div class="card-innner">
@@ -26,7 +38,8 @@
                 <div class="col-50" ng-if="match.status=='pre'">
                   <div class="vs text-center" style="margin-top:-10px;">
                     <span class="text-color font-light">{{match.timestamp|date:'EEEE, MMM d, y'}}</span>
-                    <p class="text-color font-light">{{match.timestamp|date:'H:mm'}} IST</p>
+                    <p class="text-color font-light">{{match.timestamp|date:'H:mm'}}
+                      IST</p>
                   </div>
                 </div>
                 <div class="col-25">
@@ -42,7 +55,7 @@
           </div>
         </div>
       </div>
-        <!-- <div class="card">
+      <!-- <div class="card">
     <div class="item item-text-wrap">
       This is a basic Card which contains an item that has wrapping text.
     </div>

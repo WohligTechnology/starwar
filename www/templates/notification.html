@@ -1,6 +1,16 @@
 <ion-view view-title="STALWART">
   <ion-content class="home-bg">
-    <div class="card" ng-repeat="noti in notifications">
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
+    <!-- <div class="over-lay">
+      <h1 class="text-up">wicket</h1>
+    </div> -->
+
+    <div  ng-hide="notifications"><div class="loading"><ion-spinner icon="crescent"></ion-spinner><br/><p>Loading</p></div></div>
+
+    <div class="card" ng-show="notifications" ng-repeat="noti in notifications">
       <div class="item item-text-wrap ">
         {{noti.title}}
       </div>

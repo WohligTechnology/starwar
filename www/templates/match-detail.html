@@ -3,10 +3,15 @@
     {{match.team1.name}} VS {{match.team2.name}}
   </ion-nav-title>
   <ion-content class="home-bg">
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
     <!-- <div class="over-lay">
       <h1 class="text-up">wicket</h1>
     </div> -->
 
+    <div  ng-hide="match._id"><div class="loading"><ion-spinner icon="crescent"></ion-spinner><br/><p>Loading</p></div></div>
     <div class="card" ng-if="match._id" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}">
       <div class="item item-text-wrap">
         <div class="card-innner">
@@ -24,7 +29,7 @@
                 </div>
               </div>
               <div class="col-33">
-                <!-- <div class="display-inline pull-right" ng-class="{'status2': match.status=='pre','status': match.status=='live','status3': match.status=='complete'}"><span>LIVE</span></div> -->
+                <div class="display-inline pull-right" ng-class="{'status2': match.status=='pre','status': match.status=='live','status3': match.status=='complete'}"><span>LIVE</span></div>
               </div>
             </div>
 

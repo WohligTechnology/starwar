@@ -34,6 +34,11 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     search: "",
     pagesize: "100"
   };
+  $scope.doRefresh = function() {
+    $state.reload();
+    $scope.$broadcast('scroll.refreshComplete');
+    console.log("Pull refresh Called");
+  };
 
   $scope.$on('$ionicView.beforeEnter',
     function() {
@@ -61,7 +66,11 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices) {
 
-
+  $scope.doRefresh = function() {
+    $state.reload();
+    $scope.$broadcast('scroll.refreshComplete');
+    console.log("Pull refresh Called");
+  };
   var form = {
     pagenumber: "1",
     search: "",
@@ -77,13 +86,19 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 })
 
-.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate, $stateParams, MyServices) {
+.controller('MatchDetailCtrl', function($scope, $ionicModal, $timeout, $ionicScrollDelegate, $stateParams, MyServices, $state) {
   $scope.tab = 'first';
   $scope.classa = 'actives';
   $scope.classb = '';
   var form = {
     "_id": $stateParams.id
   };
+  $scope.doRefresh = function() {
+    $state.reload();
+    $scope.$broadcast('scroll.refreshComplete');
+    console.log("Pull refresh Called");
+  };
+
 
   io.socket.on('message', function(data) {
     SocketFunction(data, true);

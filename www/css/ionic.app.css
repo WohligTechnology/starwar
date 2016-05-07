@@ -395,6 +395,13 @@ a {
 span.dlSmall {
   font-size: 75%; }
 
+.loading {
+  width: 100%;
+  text-align: Center;
+  padding: 200px 0; }
+  .loading p {
+    color: black; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
