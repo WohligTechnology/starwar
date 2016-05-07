@@ -106,7 +106,7 @@ a {
   color: $positive;
 }
 .assertive-color {
-  color:$assertive;
+  color: $assertive;
 }
 .white-color {
   color: $white-color;
@@ -242,7 +242,7 @@ a {
     border-radius: 100%;
     height: 30px;
     width: 30px;
-    padding: 6px 0px;
+    padding: 6px 0;
     font-size: 12px;
     text-align: center;
   }
@@ -508,4 +508,24 @@ a {
 .green {
   @extend .cross;
   background: green;
+}
+.card.rate .suspended {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  height: 150px;
+  top: 0;
+  left:0px;
+  background: rgba(255, 255, 255, 0.80);
+  h4 {
+    color: rgb(62, 80, 180);
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 103px;
+  }
+}
+span.dlSmall {
+    font-size: 75%;
 }

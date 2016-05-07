@@ -1,7 +1,7 @@
-<ion-view >
-  <ion-nav-title  >
-      {{match.team1.name}} VS {{match.team2.name}}
-    </ion-nav-title>
+<ion-view>
+  <ion-nav-title>
+    {{match.team1.name}} VS {{match.team2.name}}
+  </ion-nav-title>
   <ion-content class="home-bg">
     <!-- <div class="over-lay">
       <h1 class="text-up">wicket</h1>
@@ -33,7 +33,8 @@
             <div class="row">
               <div class="col-33">
                 <div class="score">
-                  <h2 class="font-light color-green">{{match.team1Runs}}/{{match.team1Wicket}}</h2>
+                  <h2 class="font-light color-green" ng-if="!(match.firstBat==1 && match.dlRuns>0)">{{match.team1Runs}}/{{match.team1Wicket}}</h2>
+                  <h2 class="font-light color-green" ng-if="match.firstBat==1 && match.dlRuns>0">{{match.dlRuns}}/{{match.team1Wicket}}</h2>
                 </div>
                 <div class="over">
                   <h3 class="font-light color-base">(OVR: {{match.team1Overs}})</h3>
@@ -49,7 +50,8 @@
               </div>
               <div class="col-33">
                 <div class="score pull-right">
-                  <h2 class="font-light postive-color">{{match.team2Runs}}/{{match.team2Wicket}}</h2>
+                  <h2 class="font-light postive-color" ng-if="!(match.firstBat==2 && match.dlRuns>0)">{{match.team2Runs}}/{{match.team2Wicket}}</h2>
+                  <h2 class="font-light postive-color" ng-if="match.firstBat==2 && match.dlRuns>0"><span class="dlSmall">{{match.dlRuns}}/{{match.team2Wicket}}</h2>
                 </div>
                 <div class="clearfix"></div>
                 <div class="over pull-right">
@@ -68,8 +70,8 @@
           <div class="card-footer text-center" ng-if="match.isSecondInning">
             <h4 class="font-light text-color" ng-if="match.remainingRuns > 0 && match.remainingBalls >0">CR: {{match.inning2Runs/match.inning2Balls*6|number:2}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RR: {{match.remainingRuns/match.remainingBalls*6|number:2}} </h4>
             <h4 class="font-light text-color" ng-if="match.remainingRuns > 0 && match.remainingBalls >0"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span> need <span class="f20 postive-color">{{match.remainingRuns}} runs</span> in <span class="f20 postive-color">{{match.remainingBalls}} balls</span> to win</h4>
-            <h4 class="font-light text-color"  ng-if="match.remainingRuns <= 0"><span>{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span>  <span class="f20 postive-color">WON</span> </h4>
-            <h4 class="font-light text-color"  ng-if="match.remainingRuns > 0 && match.remainingBalls <=0"><span>{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span>  <span class="f20 postive-color">LOST</span> </h4>
+            <h4 class="font-light text-color" ng-if="match.remainingRuns <= 0"><span>{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span>  <span class="f20 postive-color">WON</span> </h4>
+            <h4 class="font-light text-color" ng-if="match.remainingRuns > 0 && match.remainingBalls <=0"><span>{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span>  <span class="f20 postive-color">LOST</span> </h4>
 
           </div>
           <div class="card-footer text-center" ng-if="match.comment && match.comment!=''">
@@ -80,10 +82,13 @@
         </div>
       </div>
     </div>
-    <div class="card rate" ng-if="match._id">
+    <div class="card rate" style="position:relative;" ng-if="match._id">
       <!-- <div class="item item-divider font-light">
         RATE
       </div> -->
+      <div class="suspended" ng-if="match.suspended">
+        <h4>Suspended</h4>
+      </div>
       <div class="item item-text-wrap">
         <div class="row">
           <div class="col-50"></div>
@@ -123,7 +128,7 @@
       </div>
 
     </div>
-    <div class="card rate" ng-if="match._id" ng-show="match.session1.length>0 || match.session2.length>0" >
+    <div class="card rate" ng-if="match._id" ng-show="match.session1.length>0 || match.session2.length>0">
       <div class="item item-divider font-light">
         SESS
       </div>
@@ -149,7 +154,7 @@
               -
             </li>
             <li>
-              <div class="div-rates f24 " ng-class="{'color-green':match.inning1Overs >= ses.over,'postive-color':match.inning1Overs < ses.over}" >
+              <div class="div-rates f24 " ng-class="{'color-green':match.inning1Overs >= ses.over,'postive-color':match.inning1Overs < ses.over}">
                 {{ses.run}} <span ng-if="match.inning1Overs < ses.over && ses.run>0">- {{ses.run + 1}}</span> <span class="f16" ng-if="match.inning1Overs >= ses.over">(Completed)</span>
               </div>
             </li>
@@ -168,8 +173,8 @@
               -
             </li>
             <li>
-              <div class="div-rates f24 " ng-class="{'color-green':match.inning2Overs >= ses.over,'postive-color':match.inning2Overs < ses.over}" >
-                {{ses.run}} <span ng-if="match.inning2Overs < ses.over && ses.run>0">- {{ses.run + 1}}</span>  <span class="f16" ng-if="match.inning2Overs >= ses.over">(Completed)</span>
+              <div class="div-rates f24 " ng-class="{'color-green':match.inning2Overs >= ses.over,'postive-color':match.inning2Overs < ses.over}">
+                {{ses.run}} <span ng-if="match.inning2Overs < ses.over && ses.run>0">- {{ses.run + 1}}</span> <span class="f16" ng-if="match.inning2Overs >= ses.over">(Completed)</span>
               </div>
             </li>
           </ul>
