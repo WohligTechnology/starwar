@@ -118,14 +118,17 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     if ($scope.match.firstBat == 1) {
       $scope.match.inning1Overs = $scope.match.team1Overs;
       $scope.match.inning1Runs = $scope.match.team1Runs;
+      $scope.match.inning1Wicket = $scope.match.team1Wicket;
       $scope.match.inning2Overs = $scope.match.team2Overs;
       $scope.match.inning2Runs = $scope.match.team2Runs;
-
+      $scope.match.inning2Wicket = $scope.match.team2Wicket;
     } else if ($scope.match.firstBat == 2) {
       $scope.match.inning1Overs = $scope.match.team2Overs;
       $scope.match.inning1Runs = $scope.match.team2Runs;
+      $scope.match.inning1Wicket = $scope.match.team2Wicket;
       $scope.match.inning2Overs = $scope.match.team1Overs;
       $scope.match.inning2Runs = $scope.match.team1Runs;
+      $scope.match.inning2Wicket = $scope.match.team1Wicket;
     }
     $scope.match.inning1Balls = getBalls($scope.match.inning1Overs);
     $scope.match.inning2Balls = getBalls($scope.match.inning2Overs);
