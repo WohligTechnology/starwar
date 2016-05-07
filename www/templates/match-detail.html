@@ -3,15 +3,19 @@
     {{match.team1.name}} VS {{match.team2.name}}
   </ion-nav-title>
   <ion-content class="home-bg">
-    <ion-refresher
-    pulling-text="Pull to refresh..."
-    on-refresh="doRefresh()">
-  </ion-refresher>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+    </ion-refresher>
     <!-- <div class="over-lay">
       <h1 class="text-up">wicket</h1>
     </div> -->
 
-    <div  ng-hide="match._id"><div class="loading"><ion-spinner icon="crescent"></ion-spinner><br/><p>Loading</p></div></div>
+    <div ng-hide="match._id">
+      <div class="loading">
+        <ion-spinner icon="crescent"></ion-spinner>
+        <br/>
+        <p>Loading</p>
+      </div>
+    </div>
     <div class="card" ng-if="match._id" ng-class="{'b-top-blue': match.status=='pre','b-top-green': match.status=='live','b-top-red': match.status=='complete'}">
       <div class="item item-text-wrap">
         <div class="card-innner">
@@ -77,7 +81,9 @@
             <h4 class="font-light text-color" ng-if="match.remainingRuns > 0 && match.remainingBalls >0 && match.inning2Wicket < 10"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span> need <span class="f20 postive-color">{{match.remainingRuns}} runs</span> in <span class="f20 postive-color">{{match.remainingBalls}} balls</span> to win</h4>
             <h4 class="font-light text-color" ng-if="match.remainingRuns <= 0"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span>  <span class="f20 postive-color">WON</span> </h4>
             <h4 class="font-light text-color" ng-if="(match.remainingRuns > 0 && match.remainingBalls <=0) || match.inning2Wicket == 10"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span> <span class="f20 postive-color">LOST</span> </h4>
-
+            <h4 class="font-light text-color" ng-if="match.remainingRuns == 1 && match.remainingBalls <=0">
+                                            MATCH TIE
+                                        </h4>
           </div>
           <div class="card-footer text-center" ng-if="match.comment && match.comment!=''">
             <h4 class="font-light text-color"><span class="f20 assertive-color">{{match.comment}}</span></h4>
