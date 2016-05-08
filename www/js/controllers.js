@@ -123,7 +123,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   var SocketFunction = function(data, isSocket) {
     console.log(data);
     if (!data.data) {
-      // $state.go("login");
+      $state.go("login");
     } else {
       data.data.session1 = _.filter(data.data.session, function(n) {
         return n.inning == 1;
