@@ -68,7 +68,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('ContactCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices) {
+.controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices,$state) {
 
   $scope.doRefresh = function() {
     $state.reload();
