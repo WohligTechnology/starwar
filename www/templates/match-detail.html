@@ -77,7 +77,7 @@
             <h4 class="font-light text-color">CR: {{match.inning1Runs/match.inning1Balls*6|number:2}}</h4>
           </div>
           <div class="card-footer text-center" ng-if="match.isSecondInning">
-            <h4 class="font-light text-color" ng-if="match.remainingRuns > 0 && match.remainingBalls >0 match.inning2Wicket < 10">CR: {{match.inning2Runs/match.inning2Balls*6|number:2}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RR: {{match.remainingRuns/match.remainingBalls*6|number:2}} </h4>
+            <h4 class="font-light text-color" ng-if="match.remainingRuns > 0 && match.remainingBalls >0 && match.inning2Wicket < 10">CR: {{match.inning2Runs/match.inning2Balls*6|number:2}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RR: {{match.remainingRuns/match.remainingBalls*6|number:2}} </h4>
             <h4 class="font-light text-color" ng-if="match.remainingRuns > 0 && match.remainingBalls >0 && match.inning2Wicket < 10"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span> need <span class="f20 postive-color">{{match.remainingRuns}} runs</span> in <span class="f20 postive-color">{{match.remainingBalls}} balls</span> to win</h4>
             <h4 class="font-light text-color" ng-if="match.remainingRuns <= 0"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span>  <span class="f20 postive-color">WON</span> </h4>
             <h4 class="font-light text-color" ng-if="(match.remainingRuns > 1 && match.remainingBalls <=0) || match.inning2Wicket == 10"><span ng-if="match.bat==1">{{match.team1.name}}</span><span ng-if="match.bat==2">{{match.team2.name}}</span> <span class="f20 postive-color">LOST</span> </h4>
