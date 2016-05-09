@@ -40,6 +40,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     console.log("Pull refresh Called");
   };
 
+
   $scope.$on('$ionicView.beforeEnter',
     function() {
       MyServices.getAllMatch(form, function(data) {
