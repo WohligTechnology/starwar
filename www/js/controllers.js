@@ -1,5 +1,6 @@
 var Global = {};
 
+
 angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices, $state, $rootScope) {
