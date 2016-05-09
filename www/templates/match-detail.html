@@ -42,8 +42,8 @@
             <div class="row">
               <div class="col-33">
                 <div class="score">
-                  <h2 class="font-light color-green" ng-if="!(match.firstBat==1 && match.dlRuns>0)">{{match.team1Runs}}/{{match.team1Wicket}}</h2>
-                  <h2 class="font-light color-green" ng-if="match.firstBat==1 && match.dlRuns>0">{{match.dlRuns}}/{{match.team1Wicket}}</h2>
+                  <h2 class="font-light" ng-class="{'color-green': match.bat==2, 'postive-color':match.bat==1}" ng-if="!(match.firstBat==1 && match.dlRuns>0)">{{match.team1Runs}}/{{match.team1Wicket}}</h2>
+                  <h2 class="font-light" ng-class="{'color-green': match.bat==2, 'postive-color':match.bat==1}" ng-if="match.firstBat==1 && match.dlRuns>0">{{match.dlRuns}}/{{match.team1Wicket}}</h2>
                 </div>
                 <div class="over">
                   <h3 class="font-light color-base">(OVR: {{match.team1Overs}})</h3>
@@ -59,8 +59,8 @@
               </div>
               <div class="col-33">
                 <div class="score pull-right">
-                  <h2 class="font-light postive-color" ng-if="!(match.firstBat==2 && match.dlRuns>0)">{{match.team2Runs}}/{{match.team2Wicket}}</h2>
-                  <h2 class="font-light postive-color" ng-if="match.firstBat==2 && match.dlRuns>0"><span class="dlSmall">{{match.dlRuns}}/{{match.team2Wicket}}</h2>
+                  <h2 class="font-light" ng-class="{'color-green': match.bat==1, 'postive-color':match.bat==2}" ng-if="!(match.firstBat==2 && match.dlRuns>0)">{{match.team2Runs}}/{{match.team2Wicket}}</h2>
+                  <h2 class="font-light" ng-class="{'color-green': match.bat==1, 'postive-color':match.bat==2}" ng-if="match.firstBat==2 && match.dlRuns>0"><span class="dlSmall">{{match.dlRuns}}/{{match.team2Wicket}}</h2>
                 </div>
                 <div class="clearfix"></div>
                 <div class="over pull-right">
