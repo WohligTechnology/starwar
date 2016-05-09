@@ -537,3 +537,10 @@ span.dlSmall {
       color:black;
     }
 }
+body.platform-ios {
+  ion-side-menu {
+    ion-content {
+      margin-top:20px;
+    }
+  }
+}

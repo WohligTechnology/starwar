@@ -402,6 +402,9 @@ span.dlSmall {
   .loading p {
     color: black; }
 
+body.platform-ios ion-side-menu ion-content {
+  margin-top: 20px; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
