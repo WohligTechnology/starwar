@@ -289,6 +289,10 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   $scope.$on('$ionicView.beforeEnter',
     function() {
       $.jStorage.flush();
+      $scope.form = {
+        contact: "",
+        password: ""
+      };
     }
   );
 
