@@ -1,6 +1,10 @@
 var Global = {};
 
-
+var alertPopup = {
+  close: function() {
+    console.log("noClose");
+  }
+};
 angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, MyServices, $state, $rootScope) {
@@ -70,7 +74,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 .controller('ContactCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices,$state) {
+.controller('NotificationCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
 
   $scope.doRefresh = function() {
     $state.reload();
@@ -209,16 +213,18 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 .controller('LoginCtrl', function($scope, $ionicPopup, $timeout, MyServices, $state, $rootScope) {
 
 
+
   $scope.$on('$ionicView.beforeEnter',
     function() {
       $.jStorage.flush();
     }
   );
-  var alertPopup = {};
+
   $scope.closPop = function() {
     alertPopup.close();
   };
   $scope.loginSuccess = function() {
+    alertPopup.close();
     alertPopup = $ionicPopup.alert({
       scope: $scope,
       templateUrl: 'templates/loginSuccess.html',
@@ -230,13 +236,14 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   };
 
   $scope.errorCallback = function() {
+    alertPopup.close();
     alertPopup = $ionicPopup.alert({
       scope: $scope,
       templateUrl: 'templates/loginError.html',
     });
     $timeout(function() {
       $scope.closPop();
-    }, 3000);
+    }, 1500);
 
 
   };
@@ -269,7 +276,8 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
     }, function(data) {});
   };
   $scope.showSignup = function() {
-    var alertPopup = $ionicPopup.alert({
+    alertPopup.close();
+    alertPopup = $ionicPopup.alert({
       scope: $scope,
       templateUrl: 'templates/signup.html',
     });
@@ -283,21 +291,23 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
         alertPopup.close();
         if (data.data.value) {
           //become member success
-          var alertPopup2 = $ionicPopup.alert({
+          alertPopup.close();
+          alertPopup = $ionicPopup.alert({
             scope: $scope,
             templateUrl: 'templates/becomeMemberSuccess.html',
           });
           $timeout(function() {
-            alertPopup2.close();
+            alertPopup.close();
           }, 1500);
         } else {
           //become member error
-          alertPopup3 = $ionicPopup.alert({
+          alertPopup.close();
+          alertPopup = $ionicPopup.alert({
             scope: $scope,
             templateUrl: 'templates/becomeMemberError.html',
           });
           $timeout(function() {
-            alertPopup3.close();
+            alertPopup.close();
           }, 1500);
         }
       }, function() {
@@ -305,9 +315,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       });
 
     };
-    $scope.closPop = function() {
-      alertPopup.close();
-    };
+
   };
 })
 
