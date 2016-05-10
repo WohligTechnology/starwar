@@ -32,7 +32,7 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
 
 })
 
-.controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state) {
+.controller('HomeCtrl', function($scope, $ionicModal, $timeout, MyServices, $state, $interval) {
 
   var form = {
     pagenumber: "1",
@@ -63,9 +63,30 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
           $state.go("login");
         }
 
-      }, function(data) {
+      }, function(data) {});
 
-      });
+      $timeout(function() {
+        $interval(function() {
+
+          MyServices.checkUserLogin(form, function(data) {
+            $.jStorage.set("serverTime", data.serverTime);
+            $.jStorage.set("newuserid", data.userid);
+            $timeout(function() {
+              Global.expiryCalc();
+            }, 100);
+            if (data.data) {
+            } else {
+              $state.go("login");
+            }
+
+          }, function(data) {
+
+          });
+
+        }, 10000);
+
+      }, 1000);
+
     });
 
 })
@@ -91,6 +112,31 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
       MyServices.getAllNotification(form, function(data) {
         $scope.notifications = data.data.data;
       }, function(data) {});
+
+      $timeout(function() {
+        $interval(function() {
+
+          MyServices.checkUserLogin(form, function(data) {
+            $.jStorage.set("serverTime", data.serverTime);
+            $.jStorage.set("newuserid", data.userid);
+            $timeout(function() {
+              Global.expiryCalc();
+            }, 100);
+            if (data.data) {
+
+            } else {
+              $state.go("login");
+            }
+
+          }, function(data) {
+
+          });
+
+        }, 10000);
+
+      }, 1000);
+
+
 
     });
 
@@ -206,6 +252,32 @@ angular.module('starter.controllers', ['ionMDRipple', 'starter.services'])
   $scope.$on('$ionicView.beforeEnter',
     function() {
       MyServices.getMatch(form, SocketFunction, function(data) {});
+
+
+      $timeout(function() {
+        $interval(function() {
+
+          MyServices.checkUserLogin(form, function(data) {
+            $.jStorage.set("serverTime", data.serverTime);
+            $.jStorage.set("newuserid", data.userid);
+            $timeout(function() {
+              Global.expiryCalc();
+            }, 100);
+            if (data.data) {
+
+            } else {
+              $state.go("login");
+            }
+
+          }, function(data) {
+
+          });
+
+        }, 10000);
+
+      }, 1000);
+
+
     });
 
 })
